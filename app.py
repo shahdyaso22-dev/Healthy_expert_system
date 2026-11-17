@@ -313,10 +313,12 @@ if submitted:
             str_ui.write(f"🚶 {rec['fit']}")
             
         str_ui.write("")
-
-    # القواعد الذهبية لسرعة النتائج
-    str_ui.info(f"""...""")
-### {t['gold_rules']}
-💧 **شرب المياه:** من 2.5 إلى 3 لتراً يومياً لزيادة معدل الحرق ومنع الإحساس الوهمي بالجوع.  
-🚶 **الحركة الخفيفة:** المشي 15-20 دقيقة في منتصف اليوم أو بعد الغداء لتحسين الهضم والدورة الدموية.  
-🚫 **السكر والمشروبات:** استبدال السكر الأبيض بسكر دايت ومنع العصائر المعلبة ت
+            gold_rules = """
+    ### 💧 Clinical Golden Rules
+    * Drink 2.5 to 3 liters of water daily to boost metabolism.
+    * 15-20 minutes of light walking mid-day to enhance blood circulation.
+    * Replace refined white sugar with natural alternatives.
+    """
+    str_ui.info(gold_rules)
+    
+   
