@@ -314,11 +314,8 @@ if submitted:
             
         str_ui.write("")
             gold_rules = """
-    ### 💧 Clinical Golden Rules
-    * Drink 2.5 to 3 liters of water daily to boost metabolism.
-    * 15-20 minutes of light walking mid-day to enhance blood circulation.
-    * Replace refined white sugar with natural alternatives.
-    """
+gold_rules = "Drink 2.5 to 3 liters of water daily. Walk 15-20 minutes daily."
+str_ui.info(gold_rules)
     str_ui.info(gold_rules)
     
    
