@@ -309,12 +309,4 @@ if submitted:
 """
             str_ui.markdown(table_markdown)
             
-            str_ui.markdown(f"#### {t['fit_title']}")
-            str_ui.write(f"🚶 {rec['fit']}")
             
-        str_ui.write("")
-            gold_rules = "Drink 2.5 to 3 liters of water daily. Walk 15-20 minutes daily."
-str_ui.info(gold_rules)
-
-str_ui.markdown("---")
-str_ui.markdown(f"<p style='text-align: center; color: gray;'>{t['footer']}</p>", unsafe_allow_html=True)
