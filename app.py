@@ -8,7 +8,8 @@ str_ui.set_page_config(
 )
 
 # 2. تصميم عصري منور وجداول منسقة بظل مضيء
-str_ui.markdown("""
+str_ui.markdown(
+    """
     <style>
     .stApp {
         background: radial-gradient(circle at top right, #0f172a, #020617 70%);
@@ -71,8 +72,6 @@ str_ui.markdown("""
         box-shadow: 0 0 35px rgba(56, 189, 248, 0.85) !important;
         transform: translateY(-2px);
     }
-
-    /* كارت ظل خاص بجدول الأكل والرياضة */
     .table-shadow-box {
         background: rgba(15, 23, 42, 0.9);
         border: 1px solid rgba(56, 189, 248, 0.5);
@@ -111,11 +110,16 @@ str_ui.markdown("""
         background-color: rgba(56, 189, 248, 0.08) !important;
     }
     </style>
-""", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True,
+)
 
 # العنوان الرئيسي
 str_ui.title("🩺 النظام الخبير الطبي والرياضي الذكي بالذكاء الاصطناعي")
-str_ui.markdown("<p style='color: #94a3b8; font-size: 18px; margin-top: -10px;'>تشخيص طبي منفصل وإرشادات طوارئ + برامج رياضية وجداول غذائية متكاملة</p>", unsafe_allow_html=True)
+str_ui.markdown(
+    "<p style='color: #94a3b8; font-size: 18px; margin-top: -10px;'>تشخيص طبي منفصل وإرشادات طوارئ + برامج رياضية وجداول غذائية متكاملة</p>",
+    unsafe_allow_html=True,
+)
 str_ui.markdown("---")
 
 # الشريط الجانبي للملف الشخصي
@@ -124,13 +128,16 @@ age = str_ui.sidebar.number_input("العمر (بالسنوات)", 1, 120, 22)
 weight = str_ui.sidebar.number_input("الوزن (كجم)", 20.0, 250.0, 70.0)
 height = str_ui.sidebar.number_input("الطول (سم)", 50.0, 250.0, 172.0)
 gender = str_ui.sidebar.selectbox("الجنس", ["ذكر", "أنثى"])
-activity_level = str_ui.sidebar.selectbox("مستوى النشاط البدني والحركة", [
-    "خامل (بدون تمرين أو عمل مكتبي)",
-    "نشاط خفيف (تمرين 1-3 أيام في الأسبوع)",
-    "نشاط معتدل (تمرين 3-5 أيام في الأسبوع)",
-    "نشاط عالي جداً (تمارين شاقة 6-7 أيام)",
-    "حركة محدودة / كبير السن (مجهود بسيط)"
-])
+activity_level = str_ui.sidebar.selectbox(
+    "مستوى النشاط البدني والحركة",
+    [
+        "خامل (بدون تمرين أو عمل مكتبي)",
+        "نشاط خفيف (تمرين 1-3 أيام في الأسبوع)",
+        "نشاط معتدل (تمرين 3-5 أيام في الأسبوع)",
+        "نشاط عالي جداً (تمارين شاقة 6-7 أيام)",
+        "حركة محدودة / كبير السن (مجهود بسيط)",
+    ],
+)
 
 # اختيار وضع العمل (منفصل تماماً)
 str_ui.sidebar.markdown("---")
@@ -139,8 +146,8 @@ section_mode = str_ui.sidebar.radio(
     "وضع التشغيل:",
     [
         "القسم الطبي والأمراض",
-        "القسم الرياضي والغذائي"
-    ]
+        "القسم الرياضي والغذائي",
+    ],
 )
 
 selected_disease = "لا يوجد أمراض أو أعراض (حالة سليمة)"
@@ -162,7 +169,7 @@ if section_mode == "القسم الطبي والأمراض":
         "9. الألم والصداع (Paracetamol)",
         "10. ارتجاع المريء (GERD)",
         "11. آلام الظهر (Back Pain)",
-        "12. آلام المفاصل والعضلات (Joint & Muscle Pain)"
+        "12. آلام المفاصل والعضلات (Joint & Muscle Pain)",
     ]
     selected_disease = str_ui.sidebar.selectbox("اختر الحالة أو العرض:", disease_options)
     button_label = "⚡ عرض التشخيص الطبي والروشتة"
@@ -174,8 +181,8 @@ else:
         [
             "زيادة وزن وبناء عضلات (Bulking)",
             "تخسيس وتنشيف (Cutting)",
-            "لياقة عامة والحفاظ على الوزن"
-        ]
+            "لياقة عامة والحفاظ على الوزن",
+        ],
     )
     button_label = "⚡ تشغيل البرنامج الرياضي وجدول الأكل"
 
@@ -199,220 +206,218 @@ if str_ui.button(button_label, use_container_width=True):
         confidence = 98.2 if "لا يوجد" in selected_disease else 96.5
 
         str_ui.markdown("## 🧠 التقرير التشخيصي الطبي")
-        diag_html = f"""
-        <div class="glow-card">
-            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
-                <div>
-                    <span style="color: #94a3b8; font-size: 14px;">البيانات الحيوية والنشاط</span><br>
-                    <strong style="font-size: 16px; color: #f8fafc;">{age} سنة | {gender}</strong><br>
-                    <span style="color: #38bdf8; font-size: 13px;">⚡ {activity_level}</span>
-                </div>
-                <div>
-                    <span style="color: #94a3b8; font-size: 14px;">مؤشر كتلة الجسم (BMI)</span><br>
-                    <strong style="font-size: 18px; color: #38bdf8;">{bmi:.1f} — {bmi_cat}</strong>
-                </div>
-                <div>
-                    <span style="color: #94a3b8; font-size: 14px;">دقة استنتاج الذكاء الاصطناعي</span><br>
-                    <strong style="font-size: 18px; color: #2dd4bf;">⚡ {confidence}% AI Confidence</strong>
-                </div>
-            </div>
-            <hr style="border-color: rgba(56, 189, 248, 0.2); margin: 15px 0;">
-            <p style="margin: 0; color: #cbd5e1;"><strong>الحالة المختارة:</strong> {selected_disease}</p>
-        </div>
-        """
+        diag_html = (
+            '<div class="glow-card">'
+            '<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px;">'
+            '<div>'
+            '<span style="color: #94a3b8; font-size: 14px;">البيانات الحيوية والنشاط</span><br>'
+            f'<strong style="font-size: 16px; color: #f8fafc;">{age} سنة | {gender}</strong><br>'
+            f'<span style="color: #38bdf8; font-size: 13px;">⚡ {activity_level}</span>'
+            '</div>'
+            '<div>'
+            '<span style="color: #94a3b8; font-size: 14px;">مؤشر كتلة الجسم (BMI)</span><br>'
+            f'<strong style="font-size: 18px; color: #38bdf8;">{bmi:.1f} — {bmi_cat}</strong>'
+            '</div>'
+            '<div>'
+            '<span style="color: #94a3b8; font-size: 14px;">دقة استنتاج الذكاء الاصطناعي</span><br>'
+            f'<strong style="font-size: 18px; color: #2dd4bf;">⚡ {confidence}% AI Confidence</strong>'
+            '</div>'
+            '</div>'
+            '<hr style="border-color: rgba(56, 189, 248, 0.2); margin: 15px 0;">'
+            f'<p style="margin: 0; color: #cbd5e1;"><strong>الحالة المختارة:</strong> {selected_disease}</p>'
+            '</div>'
+        )
         str_ui.markdown(diag_html, unsafe_allow_html=True)
 
         if "لا يوجد أمراض" not in selected_disease:
             str_ui.markdown("## 📋 الإرشادات الطبية والتصرف المبدئي للطوارئ")
 
             if "1. مرض السكر" in selected_disease:
-                str_ui.markdown("""
-                <div class="glow-card">
-                    <h3 style="color: #38bdf8; margin-top: 0;">1. مرض السكر (Diabetes)</h3>
-                    <p><strong>التصرف المبدئي:</strong></p>
-                    <ul>
-                        <li>قياس مستوى السكر بجهاز قياس السكر إن توفر.</li>
-                        <li>شرب الماء بانتظام وتناول الوجبات في مواعيدها ومتابعة السكر وتسجيل القراءات.</li>
-                        <li>إذا ظهرت أعراض انخفاض السكر (رعشة، تعرق، دوخة) والشخص واعٍ وقادر على البلع، يُعطى مصدر سكر سريع (نصف كوب عصير)، ثم يُعاد القياس بعد 15 دقيقة.</li>
-                        <li>الاستمرار على العلاج الموصوف وعدم تغيير جرعاته دون تعليمات الطبيب.</li>
-                    </ul>
-                    <p style="color: #f87171;"><strong>تجنب:</strong> إيقاف الإنسولين أو مضاعفة جرعات الدواء من تلقاء نفسك.</p>
-                    <div class="emergency-card">
-                        <strong>🚨 اذهب للطوارئ فورًا إذا:</strong> حدث فقدان للوعي، أو تشوش شديد، أو صعوبة تنفس، أو قيء مستمر، أو لم يستطع الشخص البلع. (لا تعطِ فاقد الوعي أي طعام أو شراب).
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-
-                str_ui.markdown("""
-                <div class='rx-card'>
-                    <h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>
-                    <p><strong>الدواء الموصوف:</strong> الالتزام بالبرنامج الدوائي المعتمد ومنظم السكر (الميتفورمين أو الإنسولين بحسب إرشادات الطبيب المعالج).</p>
-                </div>
-                """, unsafe_allow_html=True)
+                str_ui.markdown(
+                    '<div class="glow-card">'
+                    '<h3 style="color: #38bdf8; margin-top: 0;">1. مرض السكر (Diabetes)</h3>'
+                    '<p><strong>التصرف المبدئي:</strong></p>'
+                    '<ul>'
+                    '<li>قياس مستوى السكر بجهاز قياس السكر إن توفر.</li>'
+                    '<li>شرب الماء بانتظام وتناول الوجبات في مواعيدها ومتابعة السكر وتسجيل القراءات.</li>'
+                    '<li>إذا ظهرت أعراض انخفاض السكر (رعشة، تعرق، دوخة) والشخص واعٍ وقادر على البلع، يُعطى مصدر سكر سريع (نصف كوب عصير)، ثم يُعاد القياس بعد 15 دقيقة.</li>'
+                    '<li>الاستمرار على العلاج الموصوف وعدم تغيير جرعاته دون تعليمات الطبيب.</li>'
+                    '</ul>'
+                    '<p style="color: #f87171;"><strong>تجنب:</strong> إيقاف الإنسولين أو مضاعفة جرعات الدواء من تلقاء نفسك.</p>'
+                    '<div class="emergency-card">'
+                    '<strong>🚨 اذهب للطوارئ فورًا إذا:</strong> حدث فقدان للوعي، أو تشوش شديد، أو صعوبة تنفس، أو قيء مستمر، أو لم يستطع الشخص البلع. (لا تعطِ فاقد الوعي أي طعام أو شراب).'
+                    '</div>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
+                str_ui.markdown(
+                    '<div class="rx-card">'
+                    '<h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>'
+                    '<p><strong>الدواء الموصوف:</strong> الالتزام بالبرنامج الدوائي المعتمد ومنظم السكر (الميتفورمين أو الإنسولين بحسب إرشادات الطبيب المعالج).</p>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
 
             elif "2. ارتفاع ضغط الدم المزمن" in selected_disease:
-                str_ui.markdown("""
-                <div class="glow-card">
-                    <h3 style="color: #38bdf8; margin-top: 0;">2. ارتفاع ضغط الدم المزمن (Chronic Hypertension)</h3>
-                    <p><strong>التصرف المبدئي:</strong></p>
-                    <ul>
-                        <li>الجلوس في مكان هادئ والراحة، ثم قياس ضغط الدم بعد الهدوء.</li>
-                        <li>تجنب المجهود والتوتر مؤقتًا وتقليل الأطعمة شديدة الملوحة.</li>
-                        <li>الالتزام بأدوية الضغط الموصوفة في مواعيدها.</li>
-                    </ul>
-                    <p style="color: #f87171;"><strong>تجنب:</strong> أخذ جرعة إضافية من دواء الضغط دون استشارة الطبيب.</p>
-                    <div class="emergency-card">
-                        <strong>🚨 اذهب للطوارئ فورًا إذا:</strong> صاحب ارتفاع الضغط ألم في الصدر، أو صعوبة تنفس، أو ضعف مفاجئ في أحد جانبي الجسم، أو اضطراب الكلام أو الرؤية، أو صداع شديد مفاجئ.
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-
-                str_ui.markdown("""
-                <div class='rx-card'>
-                    <h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>
-                    <p><strong>الدواء الموصوف:</strong> أدوية الضغط المنتظمة الخاصة بالمريض وفقاً للروشتة الطبية الثابتة.</p>
-                </div>
-                """, unsafe_allow_html=True)
+                str_ui.markdown(
+                    '<div class="glow-card">'
+                    '<h3 style="color: #38bdf8; margin-top: 0;">2. ارتفاع ضغط الدم المزمن (Chronic Hypertension)</h3>'
+                    '<p><strong>التصرف المبدئي:</strong></p>'
+                    '<ul>'
+                    '<li>الجلوس في مكان هادئ والراحة، ثم قياس ضغط الدم بعد الهدوء.</li>'
+                    '<li>تجنب المجهود والتوتر مؤقتًا وتقليل الأطعمة شديدة الملوحة.</li>'
+                    '<li>الالتزام بأدوية الضغط الموصوفة في مواعيدها.</li>'
+                    '</ul>'
+                    '<p style="color: #f87171;"><strong>تجنب:</strong> أخذ جرعة إضافية من دواء الضغط دون استشارة الطبيب.</p>'
+                    '<div class="emergency-card">'
+                    '<strong>🚨 اذهب للطوارئ فورًا إذا:</strong> صاحب ارتفاع الضغط ألم في الصدر، أو صعوبة تنفس، أو ضعف مفاجئ في أحد جانبي الجسم، أو اضطراب الكلام أو الرؤية، أو صداع شديد مفاجئ.'
+                    '</div>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
+                str_ui.markdown(
+                    '<div class="rx-card">'
+                    '<h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>'
+                    '<p><strong>الدواء الموصوف:</strong> أدوية الضغط المنتظمة الخاصة بالمريض وفقاً للروشتة الطبية الثابتة.</p>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
 
             elif "3. أمراض القلب والأوعية الدموية" in selected_disease:
-                str_ui.markdown("""
-                <div class="glow-card">
-                    <h3 style="color: #38bdf8; margin-top: 0;">3. أمراض القلب والأوعية الدموية (Cardiovascular Diseases)</h3>
-                    <p><strong>التصرف المبدئي:</strong></p>
-                    <ul>
-                        <li>إيقاف أي مجهود بدني والجلوس في وضع مريح مع تهدئة الشخص وعدم تركه بمفرده.</li>
-                        <li>استخدام الدواء الموصوف مسبقًا للحالة فقط وفق تعليمات الطبيب.</li>
-                    </ul>
-                    <p style="color: #f87171;"><strong>تجنب:</strong> المشي أو ممارسة الرياضة لمحاولة التخلص من ألم الصدر، وعدم إعطاء أدوية عشوائية.</p>
-                    <div class="emergency-card">
-                        <strong>🚨 اذهب للطوارئ فورًا إذا:</strong> ظهر ألم أو ضغط بالصدر، أو امتد الألم إلى الذراع أو الفك أو الظهر، أو حدث عرق شديد أو دوخة أو ضيق تنفس. <b>اتصل بالإسعاف 123 في مصر.</b>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-
-                str_ui.markdown("""
-                <div class='rx-card'>
-                    <h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>
-                    <p><strong>الدواء الموصوف:</strong> أدوية الطوارئ القلبية الخاصة بالمريض حسب إرشادات الطبيب المعالج.</p>
-                </div>
-                """, unsafe_allow_html=True)
+                str_ui.markdown(
+                    '<div class="glow-card">'
+                    '<h3 style="color: #38bdf8; margin-top: 0;">3. أمراض القلب والأوعية الدموية (Cardiovascular Diseases)</h3>'
+                    '<p><strong>التصرف المبدئي:</strong></p>'
+                    '<ul>'
+                    '<li>إيقاف أي مجهود بدني والجلوس في وضع مريح مع تهدئة الشخص وعدم تركه بمفرده.</li>'
+                    '<li>استخدام الدواء الموصوف مسبقًا للحالة فقط وفق تعليمات الطبيب.</li>'
+                    '</ul>'
+                    '<p style="color: #f87171;"><strong>تجنب:</strong> المشي أو ممارسة الرياضة لمحاولة التخلص من ألم الصدر، وعدم إعطاء أدوية عشوائية.</p>'
+                    '<div class="emergency-card">'
+                    '<strong>🚨 اذهب للطوارئ فورًا إذا:</strong> ظهر ألم أو ضغط بالصدر، أو امتد الألم إلى الذراع أو الفك أو الظهر، أو حدث عرق شديد أو دوخة أو ضيق تنفس. <b>اتصل بالإسعاف 123 في مصر.</b>'
+                    '</div>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
+                str_ui.markdown(
+                    '<div class="rx-card">'
+                    '<h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>'
+                    '<p><strong>الدواء الموصوف:</strong> أدوية الطوارئ القلبية الخاصة بالمريض حسب إرشادات الطبيب المعالج.</p>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
 
             elif "4. مشاكل الجهاز التنفسي" in selected_disease:
-                str_ui.markdown("""
-                <div class="glow-card">
-                    <h3 style="color: #38bdf8; margin-top: 0;">4. مشاكل الجهاز التنفسي (Respiratory Problems)</h3>
-                    <p><strong>التصرف المبدئي:</strong></p>
-                    <ul>
-                        <li>الجلوس في وضع مستقيم والابتعاد عن الدخان والغبار والروائح القوية مع تهوية المكان.</li>
-                        <li>استخدام بخاخ الربو الموصوف للشخص وفق خطة الطبيب إن كان يعاني من الربو.</li>
-                    </ul>
-                    <p style="color: #f87171;"><strong>تجنب:</strong> التعرض للدخان أو استخدام بخاخات أو أدوية غير موصوفة.</p>
-                    <div class="emergency-card">
-                        <strong>🚨 اذهب للطوارئ فورًا إذا:</strong> كان هناك اختناق أو صعوبة شديدة في التنفس أو عدم القدرة على الكلام بشكل طبيعي أو ازرقاق الشفاه.
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-
-                str_ui.markdown("""
-                <div class='rx-card'>
-                    <h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>
-                    <p><strong>الدواء الموصوف:</strong> بخاخ الموسع للشعب الهوائية (Inhaler) المعتمد للحالة.</p>
-                </div>
-                """, unsafe_allow_html=True)
+                str_ui.markdown(
+                    '<div class="glow-card">'
+                    '<h3 style="color: #38bdf8; margin-top: 0;">4. مشاكل الجهاز التنفسي (Respiratory Problems)</h3>'
+                    '<p><strong>التصرف المبدئي:</strong></p>'
+                    '<ul>'
+                    '<li>الجلوس في وضع مستقيم والابتعاد عن الدخان والغبار والروائح القوية مع تهوية المكان.</li>'
+                    '<li>استخدام بخاخ الربو الموصوف للشخص وفق خطة الطبيب إن كان يعاني من الربو.</li>'
+                    '</ul>'
+                    '<p style="color: #f87171;"><strong>تجنب:</strong> التعرض للدخان أو استخدام بخاخات أو أدوية غير موصوفة.</p>'
+                    '<div class="emergency-card">'
+                    '<strong>🚨 اذهب للطوارئ فورًا إذا:</strong> كان هناك اختناق أو صعوبة شديدة في التنفس أو عدم القدرة على الكلام بشكل طبيعي أو ازرقاق الشفاه.'
+                    '</div>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
+                str_ui.markdown(
+                    '<div class="rx-card">'
+                    '<h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>'
+                    '<p><strong>الدواء الموصوف:</strong> بخاخ الموسع للشعب الهوائية (Inhaler) المعتمد للحالة.</p>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
 
             elif "5. الحمى وارتفاع درجة الحرارة" in selected_disease:
-                str_ui.markdown("""
-                <div class="glow-card">
-                    <h3 style="color: #38bdf8; margin-top: 0;">5. الحمى وارتفاع درجة الحرارة (Fever)</h3>
-                    <p><strong>التصرف المبدئي:</strong></p>
-                    <ul>
-                        <li>قياس درجة الحرارة بترمومتر وشرب السوائل بانتظام والحصول على قسط كافٍ من الراحة.</li>
-                        <li>ارتداء ملابس خفيفة ومريحة واستخدام كمادات ماء فاتر عند الحاجة.</li>
-                    </ul>
-                    <p style="color: #f87171;"><strong>تجنب:</strong> تغطية الجسم بأغطية ثقيلة أو استخدام الماء المثلج أو الكحول لتخفيض الحرارة.</p>
-                    <div class="emergency-card">
-                        <strong>🚨 اذهب للطوارئ فورًا إذا:</strong> صاحبت الحمى صعوبة تنفس أو تشنجات أو تشوش في الوعي أو تيبس الرقبة أو صداع شديد غير معتاد.
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-
-                str_ui.markdown("""
-                <div class='rx-card'>
-                    <h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>
-                    <p><strong>الدواء الموصوف:</strong> <strong>Paracetamol (باراسيتامول)</strong> - 500 ملم قرص عند اللزوم لخفض الحرارة.</p>
-                </div>
-                """, unsafe_allow_html=True)
+                str_ui.markdown(
+                    '<div class="glow-card">'
+                    '<h3 style="color: #38bdf8; margin-top: 0;">5. الحمى وارتفاع درجة الحرارة (Fever)</h3>'
+                    '<p><strong>التصرف المبدئي:</strong></p>'
+                    '<ul>'
+                    '<li>قياس درجة الحرارة بترمومتر وشرب السوائل بانتظام والحصول على قسط كافٍ من الراحة.</li>'
+                    '<li>ارتداء ملابس خفيفة ومريحة واستخدام كمادات ماء فاتر عند الحاجة.</li>'
+                    '</ul>'
+                    '<p style="color: #f87171;"><strong>تجنب:</strong> تغطية الجسم بأغطية ثقيلة أو استخدام الماء المثلج أو الكحول لتخفيض الحرارة.</p>'
+                    '<div class="emergency-card">'
+                    '<strong>🚨 اذهب للطوارئ فورًا إذا:</strong> صاحبت الحمى صعوبة تنفس أو تشنجات أو تشوش في الوعي أو تيبس الرقبة أو صداع شديد غير معتاد.'
+                    '</div>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
+                str_ui.markdown(
+                    '<div class="rx-card">'
+                    '<h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>'
+                    '<p><strong>الدواء الموصوف:</strong> <strong>Paracetamol (باراسيتامول)</strong> - 500 ملم قرص عند اللزوم لخفض الحرارة.</p>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
 
             elif "6. السعال والبرد والتهاب الحلق" in selected_disease:
-                str_ui.markdown("""
-                <div class="glow-card">
-                    <h3 style="color: #38bdf8; margin-top: 0;">6. السعال والبرد والتهاب الحلق (Cough, Cold & Sore Throat)</h3>
-                    <p><strong>التصرف المبدئي:</strong></p>
-                    <ul>
-                        <li>شرب المشروبات الدافئة وتناول العسل لتخفيف السعال والغرغرة بالماء الدافئ والملح مع عدم بلعه.</li>
-                        <li>استخدام محلول ملحي للأنف والراحة وشرب كمية كافية من السوائل.</li>
-                    </ul>
-                    <p style="color: #f87171;"><strong>تجنب:</strong> التدخين والتعرض للهواء الملوث واستخدام المضادات الحيوية دون وصفة.</p>
-                    <div class="emergency-card">
-                        <strong>🚨 اذهب للطوارئ فورًا إذا:</strong> حدثت صعوبة في التنفس أو البلع، أو ألم شديد بالصدر، أو عدم القدرة على شرب السوائل.
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-
-                str_ui.markdown("""
-                <div class='rx-card'>
-                    <h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>
-                    <p><strong>الدواء الموصوف:</strong> <strong>Congestal (كنجستال)</strong> - قرص كل 8 ساعات لأعراض البرد والرشح.</p>
-                </div>
-                """, unsafe_allow_html=True)
+                str_ui.markdown(
+                    '<div class="glow-card">'
+                    '<h3 style="color: #38bdf8; margin-top: 0;">6. السعال والبرد والتهاب الحلق (Cough, Cold & Sore Throat)</h3>'
+                    '<p><strong>التصرف المبدئي:</strong></p>'
+                    '<ul>'
+                    '<li>شرب المشروبات الدافئة وتناول العسل لتخفيف السعال والغرغرة بالماء الدافئ والملح مع عدم بلعه.</li>'
+                    '<li>استخدام محلول ملحي للأنف والراحة وشرب كمية كافية من السوائل.</li>'
+                    '</ul>'
+                    '<p style="color: #f87171;"><strong>تجنب:</strong> التدخين والتعرض للهواء الملوث واستخدام المضادات الحيوية دون وصفة.</p>'
+                    '<div class="emergency-card">'
+                    '<strong>🚨 اذهب للطوارئ فورًا إذا:</strong> حدثت صعوبة في التنفس أو البلع، أو ألم شديد بالصدر، أو عدم القدرة على شرب السوائل.'
+                    '</div>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
+                str_ui.markdown(
+                    '<div class="rx-card">'
+                    '<h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>'
+                    '<p><strong>الدواء الموصوف:</strong> <strong>Congestal (كنجستال)</strong> - قرص كل 8 ساعات لأعراض البرد والرشح.</p>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
 
             elif "7. حموضة المعدة" in selected_disease:
-                str_ui.markdown("""
-                <div class="glow-card">
-                    <h3 style="color: #38bdf8; margin-top: 0;">7. حموضة المعدة (Vonacidan)</h3>
-                    <p><strong>التصرف المبدئي:</strong> الجلوس في وضع مستقيم بعد الأكل، تناول وجبات صغيرة، وتجنب الاستلقاء مباشرة والابتعاد عن الأطعمة الحارة أو الدسمة.</p>
-                </div>
-                """, unsafe_allow_html=True)
-
-                str_ui.markdown("""
-                <div class='rx-card'>
-                    <h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>
-                    <p><strong>الدواء الموصوف:</strong> <strong>Vonacidan (فوناسيدان)</strong> لتقليل حموضة المعدة.</p>
-                </div>
-                """, unsafe_allow_html=True)
+                str_ui.markdown(
+                    '<div class="glow-card">'
+                    '<h3 style="color: #38bdf8; margin-top: 0;">7. حموضة المعدة (Vonacidan)</h3>'
+                    '<p><strong>التصرف المبدئي:</strong> الجلوس في وضع مستقيم بعد الأكل، تناول وجبات صغيرة، وتجنب الاستلقاء مباشرة والابتعاد عن الأطعمة الحارة أو الدسمة.</p>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
+                str_ui.markdown(
+                    '<div class="rx-card">'
+                    '<h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>'
+                    '<p><strong>الدواء الموصوف:</strong> <strong>Vonacidan (فوناسيدان)</strong> لتقليل حموضة المعدة.</p>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
 
             elif "8. القولون العصبي" in selected_disease:
-                str_ui.markdown("""
-                <div class="glow-card">
-                    <h3 style="color: #38bdf8; margin-top: 0;">8. القولون العصبي (Replix)</h3>
-                    <p><strong>التصرف المبدئي:</strong> الابتعاد عن التوتر والقلق، تجنب الأطعمة المهيجة للقولون (البقوليات والبهارات)، وتناول وجبات صغيرة بانتظام مع شرب الأعشاب المهدئة.</p>
-                </div>
-                """, unsafe_allow_html=True)
-
-                str_ui.markdown("""
-                <div class='rx-card'>
-                    <h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>
-                    <p><strong>الدواء الموصوف:</strong> <strong>Replix (ريبليكس)</strong> لتنظيم حركة القولون وتخفيف التشنجات والتقلصات.</p>
-                </div>
-                """, unsafe_allow_html=True)
+                str_ui.markdown(
+                    '<div class="glow-card">'
+                    '<h3 style="color: #38bdf8; margin-top: 0;">8. القولون العصبي (Replix)</h3>'
+                    '<p><strong>التصرف المبدئي:</strong> الابتعاد عن التوتر والقلق، تجنب الأطعمة المهيجة للقولون (البقوليات والبهارات)، وتناول وجبات صغيرة بانتظام مع شرب الأعشاب المهدئة.</p>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
+                str_ui.markdown(
+                    '<div class="rx-card">'
+                    '<h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>'
+                    '<p><strong>الدواء الموصوف:</strong> <strong>Replix (ريبليكس)</strong> لتنظيم حركة القولون وتخفيف التشنجات والتقلصات.</p>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
 
             elif "9. الألم والصداع" in selected_disease:
-                str_ui.markdown("""
-                <div class="glow-card">
-                    <h3 style="color: #38bdf8; margin-top: 0;">9. الألم والصداع (Paracetamol)</h3>
-                    <p><strong>التصرف المبدئي:</strong> الجلوس في مكان هادئ ومظلم نسبياً، الابتعاد عن الشاشات والإضاءات القوية، عمل كمادات باردة وشرب الماء بانتظام.</p>
-                </div>
-                """, unsafe_allow_html=True)
-
-                str_ui.markdown("""
-                <div class='rx-card'>
-                    <h3 style="color: #2dd4bf; margin-top: 0;">💊 الروشتة الطبية المعتمدة</h3>
-                    <p><strong>الدواء الموصوف:</strong> <strong>Paracetamol (باراسيتامول)</strong> لتسكين الصداع والآلام العامة.</p>
-                </div>
-                """, unsafe_allow_html=True)
-
-            elif "10. ارتجاع المريء" in selected_disease:
-                str_ui.markdown("""
-                <div class="glow-card">
-                    <h3 style="color: #38bdf8; margin-top: 0;">10. ارتجاع المريء (GERD)</h3>
- 
+                str_ui.markdown(
+                    '<div class="glow-card">'
+                    '<h3 style="color: #38bdf8; margin-top: 0;">9. الألم والصداع (Paracetamol)</h3>'
+                    '<p><strong>التصرف المبدئي:</strong> الجلوس في مكان هادئ ومظلم نسبياً، الابتعاد عن الشاشات والإضاءات القوية، عمل كمادات باردة وشرب الماء بانتظام.</p>'
+                    '</div>',
+                    unsafe_allow_html=True,
+                )
+                str_ui.markdown(
+                    '<div class="rx-card"
