@@ -297,15 +297,15 @@ if str_ui.button(button_label, use_container_width=True):
                 )
         else:
             str_ui.info(tr("لا يوجد أمراض مسجلة حالياً — الحالة الصحية مستقرة.", "No diseases recorded currently — health status is stable."))
-            if str_ui.session_state.get("show_sports_program") or ("الرياضة" in str(section_node)) or ("Sports" in str(section_node)):
-    str_ui.markdown("## " + tr("🏋️‍♂️ البرنامج الرياضي والنظام الغذائي", "🏋️‍♂️ Sports & Nutrition Program"))
-    c1, c2, c3 = str_ui.columns(3)
-    c1.metric(tr("البيانات البدنية", "Physical Profile"), f"{age} " + tr("سنة", "yrs") + f" | {gender}")
-    c2.metric(tr("مؤشر كتلة الجسم (BMI)", "Body Mass Index (BMI)"), f"{bmi:.1f}", bmi_cat)
-    c3.metric(tr("الهدف المختار", "Selected Goal"), fitness_goal or tr("غير محدد", "Not Set"))
-    str_ui.info("**" + tr("مستوى النشاط البدني:", "Physical Activity Level:") + f"** {activity_level}")
+    if str_ui.session_state.get("show_sports_program") or ("الرياضة" in str(section_node)) or ("Sports" in str(section_node)):
+        str_ui.markdown("## " + tr("🏋️‍♂️ البرنامج الرياضي والنظام الغذائي", "🏋️‍♂️ Sports & Nutrition Program"))
+        c1, c2, c3 = str_ui.columns(3)
+        c1.metric(tr("البيانات البدنية", "Physical Profile"), f"{age} " + tr("سنة", "yrs") + f" | {gender}")
+        c2.metric(tr("مؤشر كتلة الجسم (BMI)", "Body Mass Index (BMI)"), f"{bmi:.1f}", bmi_cat)
+        c3.metric(tr("الهدف المختار", "Selected Goal"), fitness_goal or tr("غير محدد", "Not Set"))
+        str_ui.info("**" + tr("مستوى النشاط البدني:", "Physical Activity Level:") + f"** {activity_level}")
 
-    goal_str = str(fitness_goal or "")
+        goal_str = str(fitness_goal or "")
     if "زيادة وزن" in goal_str or "Weight Gain" in goal_str:
         str_ui.markdown(
             """
