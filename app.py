@@ -8,6 +8,7 @@ str_ui.set_page_config(
 
 lang_choice = str_ui.radio("🌐 اللغة / Language", ["العربية", "English"], horizontal=True)
 def tr(ar_txt, en_txt): return ar_txt if lang_choice == "العربية" else en_txt
+
 css_code = (
     "<style>"
     ".stApp { background: radial-gradient(circle at top right, #0f172a, #020617 70%); color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }"
@@ -40,7 +41,7 @@ def render_condition(title, initial_steps, avoid_text=None, emergency_text=None,
         str_ui.error("**" + tr("اذهب للطوارئ فوراً 🚨:", "Go to ER immediately 🚨:") + "** " + emergency_text)
     if med_text:
         str_ui.success("**" + tr("الروشتة الطبية المعتمدة - الدواء الموصوف 💊:", "Approved Medical Prescription - Medication 💊:") + "** " + med_text)
-        
+
 
 def build_html_table(headers, rows):
     th_html = "".join(["<th>" + h + "</th>" for h in headers])
@@ -58,8 +59,8 @@ def build_html_table(headers, rows):
 
 
 str_ui.title(tr("النظام الخبير الطبي والرياضي الذكي بالذكاء الاصطناعي 🧠", "AI Clinical, Medical & Sports Expert System 🧠"))
-str_ui.markdown("<p style='color: #94a3b8; font-size: 18px;'>تشخيص طبي منفصل وإرشادات طوارئ + برامج رياضية وجداول غذائية متكاملة</p>", unsafe_allow_html=True)
 str_ui.markdown("<p style='color: #94a3b8; font-size: 18px;'>" + tr("تشخيص طبي منفصل وإرشادات طوارئ + برامج رياضية وجداول غذائية متكاملة", "Separate medical diagnosis & emergency guidance + workout plans & full meal tables") + "</p>", unsafe_allow_html=True)
+str_ui.markdown("---")
 
 str_ui.sidebar.header(tr("الملف الشخصي للمريض والرياضي", "Patient & Athlete Profile"))
 age = str_ui.sidebar.number_input(tr("العمر (بالسنوات)", "Age (years)"), 1, 120, 22)
@@ -77,6 +78,7 @@ activity_level = str_ui.sidebar.selectbox(
     ],
 )
 
+str_ui.sidebar.markdown("---")
 str_ui.sidebar.subheader(tr("اختر القسم الذي تريد العمل عليه", "Choose the section to work on"))
 section_mode = str_ui.sidebar.radio(
     tr("القسم", "Section"),
@@ -85,13 +87,14 @@ section_mode = str_ui.sidebar.radio(
         tr("القسم الرياضي والغذائي", "Sports & Nutrition Section"),
     ],
 )
-selected_disease = str_ui.sidebar.selectbox(tr("اختر الداء أو العرض الرئيسي", "Select main condition or symptom"), disease_options)
-selected_disease = "لا يوجد أمراض أو أعراض (حالة سليمة)"
+
+selected_disease = tr("لا يوجد أمراض أو أعراض (حالة سليمة)", "No diseases or symptoms (Healthy)")
 fitness_goal = None
+
 if section_mode == tr("القسم الطبي والأمراض", "Medical & Diseases Section"):
-if section_mode == "القسم الطبي والأمراض":
-    str_ui.sidebar.subheader(tr("قسم الأمراض والحالات السريرية الشاملة", "Comprehensive Diseases & Clinical Cases")
-        disease_options = [
+    str_ui.sidebar.markdown("---")
+    str_ui.sidebar.subheader(tr("قسم الأمراض والحالات السريرية الشاملة", "Comprehensive Diseases & Clinical Cases"))
+    disease_options = [
         tr("لا يوجد أمراض أو أعراض (حالة سليمة)", "No diseases or symptoms (Healthy)"),
         tr("1. مرض السكر (Diabetes)", "1. Diabetes"),
         tr("2. ارتفاع ضغط الدم المزمن (Chronic Hypertension)", "2. Chronic Hypertension"),
@@ -106,288 +109,148 @@ if section_mode == "القسم الطبي والأمراض":
         tr("11. آلام الظهر (Back Pain)", "11. Back Pain"),
         tr("12. آلام المفاصل والعضلات (Joint & Muscle Pain)", "12. Joint & Muscle Pain"),
     ]
-        selected_disease = str_ui.sidebar.selectbox(tr("اختر الداء أو العرض الرئيسي", "Select main condition or symptom"), disease_options)
-        button_label = tr("عرض التشخيص الطبي والروشتة ⚡", "Show Medical Diagnosis & Prescription ⚡")
+    selected_disease = str_ui.sidebar.selectbox(tr("اختر الداء أو العرض الرئيسي", "Select main condition or symptom"), disease_options)
+    button_label = tr("عرض التشخيص الطبي والروشتة ⚡", "Show Medical Diagnosis & Prescription ⚡")
 else:
     str_ui.sidebar.markdown("---")
     str_ui.sidebar.subheader(tr("قسم الرياضة والتغذية المعتمدة", "Approved Sports & Nutrition Section"))
-        fitness_goal = str_ui.sidebar.radio(
+    fitness_goal = str_ui.sidebar.radio(
         tr("اختر هدفك الرياضي والغذائي", "Choose your sports & nutrition goal"),
         [
             tr("زيادة وزن وبناء عضلات", "Weight Gain & Muscle Building"),
             tr("تقليل وزن وتنشيف", "Weight Loss & Cutting"),
         ],
-        )
-        button_label = tr("تفعيل النظام الرياضي والغذائي 🏋️‍♂️", "Activate Sports & Nutrition System 🏋️‍♂️")
+    )
+    button_label = tr("تفعيل النظام الرياضي والغذائي 🏋️‍♂️", "Activate Sports & Nutrition System 🏋️‍♂️")
 
 if str_ui.button(button_label, use_container_width=True):
     height_m = height / 100.0
     bmi = weight / (height_m ** 2)
 
-            if bmi < 18.5:
-            bmi_cat = tr("نحافة (Underweight)", "Underweight")
-        elif bmi < 25:
-            bmi_cat = tr("وزن مثالي (Normal)", "Normal Weight")
-        elif bmi < 30:
-            bmi_cat = tr("زيادة وزن (Overweight)", "Overweight")
-        else:
-            bmi_cat = tr("سمنة (Obese)", "Obese")
-
-            if section_mode == tr("القسم الطبي والأمراض", "Medical & Diseases Section"):
-            confidence = 98.2 if ("لا يوجد" in selected_disease or "No diseases" in selected_disease) else 96.5
-            str_ui.markdown("### " + tr("التقرير التشخيصي وتحليل الذكاء الاصطناعي", "Diagnostic Report & AI Analysis"))
-            c1, c2, c3 = str_ui.columns(3)
-            c1.metric(tr("البيانات الفردية", "Individual Profile"), f"{age} " + tr("سنة", "yrs") + f" | {gender}")
-            c2.metric(tr("مؤشر كتلة الجسم (BMI)", "Body Mass Index (BMI)"), f"{bmi:.1f}", bmi_cat)
-            c3.metric(tr("دقة الذكاء الاصطناعي", "AI Confidence"), f"{confidence}%")
-            str_ui.info(f"**" + tr("الحالة المختارة:", "Selected Condition:") + f"** {selected_disease} | **" + tr("مستوى النشاط:", "Activity Level:") + f"** {activity_level}")
-
-            if ("لا يوجد" not in selected_disease) and ("No diseases" not in selected_disease):
-                str_ui.markdown("### " + tr("الإرشادات الطبية والصرف الدوائي المتوازن", "Medical Guidance & Balanced Medication"))
-
-        if "لا يوجد أمراض" not in selected_disease:
-            str_ui.markdown("## 📋 الإرشادات الطبية والتصرف المبدئي للطوارئ")
-
-            if "1. مرض السكر" in selected_disease:
-                render_condition(
-                    "1. مرض السكر (Diabetes)",
-                    [
-                        "قياس مستوى السكر بجهاز قياس السكر إن توفر.",
-                        "شرب الماء بانتظام وتناول الوجبات في مواعيدها ومتابعة مستوى السكر وتسجيل القراءات.",
-                        "إذا ظهرت أعراض انخفاض السكر، مثل الرعشة والتعرق والدوخة، والشخص واعٍ وقادر على البلع، يُعطى مصدر سكر سريع مثل نصف كوب عصير، ثم يُعاد القياس بعد 15 دقيقة.",
-                        "الاستمرار على العلاج الموصوف وعدم تغيير جرعاته دون تعليمات الطبيب.",
-                    ],
-                    avoid_text="إيقاف الإنسولين أو مضاعفة جرعات الدواء من تلقاء نفسك.",
-                    emergency_text="حدث فقدان للوعي، أو تشوش شديد، أو صعوبة تنفس، أو قيء مستمر، أو لم يستطع الشخص البلع. لا تعطِ فاقد الوعي أي طعام أو شراب.",
-                    med_text="الالتزام بالعلاج الموصوف ومنظم السكر أو الإنسولين حسب تعليمات الطبيب.",
-                )
-
-            elif "2. ارتفاع ضغط الدم المزمن" in selected_disease:
-                render_condition(
-                    "2. ارتفاع ضغط الدم المزمن (Chronic Hypertension)",
-                    [
-                        "الجلوس في مكان هادئ والراحة.",
-                        "قياس ضغط الدم بعد الجلوس بهدوء.",
-                        "تجنب المجهود والتوتر مؤقتًا وتقليل الأطعمة شديدة الملوحة.",
-                        "الالتزام بأدوية الضغط الموصوفة في مواعيدها.",
-                    ],
-                    avoid_text="أخذ جرعة إضافية من دواء الضغط دون استشارة الطبيب.",
-                    emergency_text="صاحب ارتفاع الضغط ألم في الصدر، أو صعوبة تنفس، أو ضعف مفاجئ في أحد جانبي الجسم، أو اضطراب الكلام أو الرؤية، أو صداع شديد مفاجئ.",
-                    med_text="أدوية الضغط الموصوفة في مواعيدها الثابتة حسب إرشادات الطبيب.",
-                )
-
-            elif "3. أمراض القلب والأوعية الدموية" in selected_disease:
-                render_condition(
-                    "3. أمراض القلب والأوعية الدموية (Cardiovascular Diseases)",
-                    [
-                        "إيقاف أي مجهود بدني.",
-                        "الجلوس في وضع مريح وتهدئة الشخص وعدم تركه بمفرده.",
-                        "استخدام الدواء الموصوف مسبقًا للحالة فقط وفق تعليمات الطبيب.",
-                    ],
-                    avoid_text="المشي أو ممارسة الرياضة لمحاولة التخلص من ألم الصدر، وعدم إعطاء أدوية عشوائية.",
-                    emergency_text="ظهر ألم أو ضغط بالصدر، أو امتد الألم إلى الذراع أو الفك أو الظهر، أو حدث عرق شديد أو دوخة أو ضيق تنفس. اتصل بالإسعاف 123 في مصر.",
-                    med_text="الدواء الموصوف مسبقاً للحالة فقط وفق تعليمات الطبيب.",
-                )
-
-            elif "4. مشاكل الجهاز التنفسي" in selected_disease:
-                render_condition(
-                    "4. مشاكل الجهاز التنفسي (Respiratory Problems)",
-                    [
-                        "الجلوس في وضع مستقيم.",
-                        "الابتعاد عن الدخان والغبار والروائح القوية.",
-                        "توفير هواء نقي وتهوية المكان.",
-                        "استخدام بخاخ الربو الموصوف للشخص وفق خطة الطبيب إن كان يعاني من الربو.",
-                    ],
-                    avoid_text="التعرض للدخان أو استخدام بخاخات أو أدوية غير موصوفة.",
-                    emergency_text="كان هناك اختناق أو صعوبة شديدة في التنفس أو عدم القدرة على الكلام بشكل طبيعي أو ازرقاق الشفاه.",
-                    med_text="بخاخ الربو الموصوف وفق خطة الطبيب إن كان يعاني من الربو.",
-                )
-
-            elif "5. الحمى وارتفاع درجة الحرارة" in selected_disease:
-                render_condition(
-                    "5. الحمى وارتفاع درجة الحرارة (Fever)",
-                    [
-                        "قياس درجة الحرارة بترمومتر.",
-                        "شرب السوائل بانتظام والراحة والحصول على قسط كافٍ من النوم.",
-                        "ارتداء ملابس خفيفة ومريحة واستخدام كمادات ماء فاتر عند الحاجة.",
-                    ],
-                    avoid_text="تغطية الجسم بأغطية ثقيلة أو استخدام الماء المثلج أو الكحول لتخفيض الحرارة.",
-                    emergency_text="صاحبت الحمى صعوبة تنفس أو تشنجات أو تشوش في الوعي أو تيبس الرقبة أو صداع شديد غير معتاد.",
-                    med_text="Paracetamol (باراسيتامول) عند اللزوم حسب إرشادات الطبيب أو الصيدلي.",
-                )
-
-            elif "6. السعال والبرد والتهاب الحلق" in selected_disease:
-                render_condition(
-                    "6. السعال والبرد والتهاب الحلق (Cough, Cold & Sore Throat)",
-                    [
-                        "شرب المشروبات الدافئة.",
-                        "تناول العسل لتخفيف السعال إذا لم توجد حساسية منه.",
-                        "الغرغرة بالماء الدافئ والملح مع عدم بلعه.",
-                        "استخدام محلول ملحي للأنف والراحة وشرب كمية كافية من السوائل.",
-                    ],
-                    avoid_text="التدخين والتعرض للهواء الملوث واستخدام المضادات الحيوية دون وصفة.",
-                    emergency_text="حدثت صعوبة في التنفس أو البلع، أو ألم شديد بالصدر، أو عدم القدرة على شرب السوائل.",
-                    med_text="Congestal (كنجستال)",
-                )
-
-            elif "7. حموضة المعدة" in selected_disease:
-                render_condition(
-                    "7. حموضة المعدة (Vonacidan)",
-                    [
-                        "الجلوس في وضع مستقيم بعد الأكل وتجنب الاستلقاء مباشرة.",
-                        "تناول وجبات صغيرة والابتعاد عن الأطعمة التي تزيد الحموضة.",
-                    ],
-                    med_text="Vonacidan (فوناسيدان)",
-                )
-
-            elif "8. القولون العصبي" in selected_disease:
-                render_condition(
-                    "8. القولون العصبي (Replix)",
-                    [
-                        "تجنب التوتر والقلق والأطعمة المهيجة للقولون.",
-                        "تناول وجبات منتظمة وشرب السوائل والمشروبات الدافئة المهدئة.",
-                    ],
-                    med_text="Replix (ريبليكس)",
-                )
-
-            elif "9. الألم والصداع" in selected_disease:
-                render_condition(
-                    "9. الألم والصداع (Paracetamol)",
-                    [
-                        "الراحة في مكان هادئ وشرب الماء بانتظام.",
-                        "تجنب الإجهاد الزائد والشاشات لفترات طويلة.",
-                    ],
-                    med_text="Paracetamol (باراسيتامول)",
-                )
-
-            elif "10. ارتجاع المريء" in selected_disease:
-                render_condition(
-                    "10. ارتجاع المريء (GERD)",
-                    [
-                        "الجلوس في وضع مستقيم بعد تناول الطعام.",
-                        "تناول وجبات صغيرة وتجنب الاستلقاء لمدة ساعتين إلى ثلاث ساعات بعد الأكل.",
-                        "الابتعاد عن الأطعمة التي تزيد الحموضة لدى الشخص.",
-                        "رفع الجزء العلوي من الجسم أثناء النوم إذا كانت الأعراض ليلية.",
-                    ],
-                    avoid_text="تناول وجبات كبيرة قبل النوم أو الاستلقاء مباشرة بعد الأكل.",
-                    emergency_text="ظهر ألم شديد أو ضغط في الصدر، خاصة مع العرق أو ضيق التنفس أو الدوخة، أو حدث قيء دموي أو صعوبة شديدة في البلع.",
-                    med_text="حسب إرشادات الطبيب المختص.",
-                )
-
-            elif "11. آلام الظهر" in selected_disease:
-                render_condition(
-                    "11. آلام الظهر (Back Pain)",
-                    [
-                        "تجنب حمل الأشياء الثقيلة.",
-                        "تغيير وضعية الجلوس باستمرار والمشي الخفيف والحركة الهادئة حسب القدرة.",
-                        "استخدام كمادات باردة أو دافئة ملفوفة في قطعة قماش.",
-                        "الحصول على الراحة دون ملازمة السرير لفترات طويلة.",
-                    ],
-                    avoid_text="الحركات المفاجئة أو حمل الأوزان أو التدليك العنيف.",
-                    emergency_text="صاحَب الألم ضعف مفاجئ بالساقين، أو فقدان التحكم في البول أو البراز، أو فقدان الإحساس بمنطقة ما بين الفخذين، أو حدث بعد إصابة قوية.",
-                    med_text="حسب إرشادات الطبيب المختص.",
-                )
-
-            elif "12. آلام المفاصل والعضلات" in selected_disease:
-                render_condition(
-                    "12. آلام المفاصل والعضلات (Joint & Muscle Pain)",
-                    [
-                        "إراحة الجزء المصاب مؤقتًا.",
-                        "استخدام كمادات باردة ملفوفة في منشفة لمدة قصيرة عند وجود تورم حديث.",
-                        "تجنب المجهود والحركات التي تزيد الألم.",
-                        "تحريك المفصل بلطف عندما تسمح الحالة بذلك وشرب الماء بانتظام.",
-                    ],
-                    avoid_text="الضغط على المفصل المصاب أو ممارسة الرياضة العنيفة أو استخدام أدوية دون استشارة.",
-                    emergency_text="كان المفصل شديد التورم أو ساخنًا ومحمرًا، أو صاحبه ارتفاع حرارة، أو تعذر تحريكه أو تحميل الوزن عليه.",
-                    med_text="حسب إرشادات الطبيب المختص.",
-                )
-        else:
-            str_ui.info("لا يوجد أمراض مسجلة حالياً — الحالة الصحية مستقرة.")
-
+    if bmi < 18.5:
+        bmi_cat = tr("نحافة (Underweight)", "Underweight")
+    elif bmi < 25:
+        bmi_cat = tr("وزن مثالي (Normal)", "Normal Weight")
+    elif bmi < 30:
+        bmi_cat = tr("زيادة وزن (Overweight)", "Overweight")
     else:
-        str_ui.markdown("## 🏋️‍♂️ البرنامج الرياضي والنظام الغذائي")
+        bmi_cat = tr("سمنة (Obese)", "Obese")
+
+    if section_mode == tr("القسم الطبي والأمراض", "Medical & Diseases Section"):
+        confidence = 98.2 if ("لا يوجد" in selected_disease or "No diseases" in selected_disease) else 96.5
+        str_ui.markdown("### " + tr("التقرير التشخيصي وتحليل الذكاء الاصطناعي", "Diagnostic Report & AI Analysis"))
         c1, c2, c3 = str_ui.columns(3)
-        c1.metric("البيانات البدنية", f"{age} سنة | {gender}")
-        c2.metric("مؤشر كتلة الجسم (BMI)", f"{bmi:.1f}", bmi_cat)
-        c3.metric("الهدف المختار", fitness_goal)
-        str_ui.info(f"**مستوى النشاط البدني:** {activity_level}")
+        c1.metric(tr("البيانات الفردية", "Individual Profile"), f"{age} " + tr("سنة", "yrs") + f" | {gender}")
+        c2.metric(tr("مؤشر كتلة الجسم (BMI)", "Body Mass Index (BMI)"), f"{bmi:.1f}", bmi_cat)
+        c3.metric(tr("دقة الذكاء الاصطناعي", "AI Confidence"), f"{confidence}%")
+        str_ui.info("**" + tr("الحالة المختارة:", "Selected Condition:") + f"** {selected_disease} | **" + tr("مستوى النشاط:", "Activity Level:") + f"** {activity_level}")
 
-        if fitness_goal == "زيادة وزن وبناء عضلات":
-            str_ui.markdown(
-                "<div class='diet-banner'>"
-                "<span class='pill-tag'>فائض سعرات صحي ومتوازن</span>"
-                "<h3 style='margin: 4px 0; color: #7dd3fc !important;'>📈 جدول النظام الغذائي لزيادة الوزن وبناء العضلات</h3>"
-                "<p style='margin: 0; color: #cbd5e1;'>خطة يومية متكاملة من 6 وجبات بمواعيد محددة لزيادة الكتلة العضلية والوزن الصحي بأمان.</p>"
-                "</div>",
-                unsafe_allow_html=True,
-            )
+        if ("لا يوجد" not in selected_disease) and ("No diseases" not in selected_disease):
+            str_ui.markdown("## " + tr("📋 الإرشادات الطبية والتصرف المبدئي للطوارئ", "📋 Medical Guidance & Emergency First Aid"))
 
-            gain_meals = [
-                [
-                    "<strong>الإفطار</strong><br><span style='color:#38bdf8;'>⏰ 8:00 - 9:00 صباحاً</span>",
-                    "• 3 بيضات مقلية بالزبدة أو زيت الزيتون<br>• رغيف خبز بلدي أو شريحتين خبز توست بر<br>• كوب حليب كامل الدسم مع تمرات<br>• ملعقة كبيرة زبدة فول سوداني",
-                    "<span class='pill-tag'>الدهون الصحية والبروتين</span><br>طاقة قوية في بداية اليوم مع بروتين ودهون صحية لدعم بناء العضلات.",
-                ],
-                [
-                    "<strong>وجبة خفيفة (سناك 1)</strong><br><span style='color:#38bdf8;'>⏰ 11:30 صباحاً</span>",
-                    "• طبق سلطة فواكه مجففة ومكسرات (عين جمل، لوز، زبيب)<br>• كوب عصير مانجو أو موز بالحليب كامل الدسم مع العسل",
-                    "<span class='pill-tag'>سعرات مركزة</span><br>سهلة الهضم وغنية بالدهون الصحية والطاقة لرفع السعرات اليومية.",
-                ],
-                [
-                    "<strong>الغداء (الوجبة الرئيسية)</strong><br><span style='color:#38bdf8;'>⏰ 2:30 - 3:30 ظهراً</span>",
-                    "• طبق كبير أرز مصري أو مكرونة (مطهو بالسمن أو الزبدة)<br>• صدرين دجاج أو قطعة لحم ضأن/بقري متوسطة الحجم<br>• طبق خضار مطهو مع مرقة ودسم صحي<br>• سلطة خضراء مع زيت الزيتون",
-                    "<span class='pill-tag'>وجبة أساسية متكاملة</span><br>غنية بالبروتين والكربوهيدرات المعقدة لبناء الكتلة العضلية والوزن.",
-                ],
-                [
-                    "<strong>وجبة خفيفة (سناك 2)</strong><br><span style='color:#38bdf8;'>⏰ 5:30 مساءً (قبل التمرين)</span>",
-                    "• ساندويتش زبدة الفول السوداني والموز مع العسل<br>• أو حبة فاكهة مع حفنة مكسرات",
-                    "<span class='pill-tag'>طاقة قبل التمرين</span><br>تمدك بطاقة عالية جداً قبل بذل أي مجهود أو لعب الرياضة.",
-                ],
-                [
-                    "<strong>العشاء</strong><br><span style='color:#38bdf8;'>⏰ 8:30 - 9:30 مساءً</span>",
-                    "• طبق فول بزيت الزيتون والطحينة الخفيفة<br>• جبنة كاملة الدسم (قريش مع قشطة أو جبنة بيضاء دسمة)<br>• رغيف خبز بلدي",
-                    "<span class='pill-tag'>بروتين بطيء الهضم</span><br>يغذي الجسم طوال الليل مع دهون الطحينة وزيت الزيتون.",
-                ],
-                [
-                    "<strong>قبل النوم</strong><br><span style='color:#38bdf8;'>⏰ قبل النوم مباشرة</span>",
-                    "• كوب حليب دافئ كامل الدسم مع ملعقة عسل ومكسرات مطحونة",
-                    "<span class='pill-tag'>استشفاء وزيادة سعرات</span><br>يساعد على الاسترخاء ويزيد السعرات الحرارية في آخر اليوم.",
-                ],
-            ]
-            str_ui.markdown(build_html_table(["الوجبة والوقت", "مكونات الوجبة المقترحة", "القيمة والفوائد الغذائية"], gain_meals), unsafe_allow_html=True)
-
-            str_ui.markdown("### 💪 الرياضة والتمارين المطلوبة (زيادة الوزن وبناء العضلات)")
-
-            gain_sports = [
-                ["<strong>اليوم 1</strong>", "تمارين مقاومة دفع: ضغط صدر (Bench Press)، رفرفة صدر، ضغط كتف أمامي وجانبي، ترايسبس", "60 دقيقة • 4 أيام أسبوعياً"],
-                ["<strong>اليوم 2</strong>", "تمارين مقاومة سحب: سحب ظهر علوي (Lat Pulldown)، تجديف بالبار أو الدمبل، بايسبس، كتف خلفي", "60 دقيقة • 4 أيام أسبوعياً"],
-                ["<strong>اليوم 3</strong>", "راحة تامة واستشفاء عضلي", "راحة واستشفاء"],
-                ["<strong>اليوم 4</strong>", "تمارين أرجل كاملة: سكوات، ضغط أرجل (Leg Press)، طعنات (Lunges)، عضلة خلفية وسمانة", "60 دقيقة • 4 أيام أسبوعياً"],
-                ["<strong>اليوم 5</strong>", "تمارين جزء علوي وتقوية البطن والجذع (Upper Body & Core)", "45 - 50 دقيقة"],
-                ["<strong>اليوم 6 و 7</strong>", "راحة ونوم عميق لتعافي العضلات ونموها", "راحة ونوم 7-9 ساعات يومياً"],
-            ]
-            str_ui.markdown(build_html_table(["اليوم", "الرياضة والألعاب المطلوبة", "المدة وعدد الأيام"], gain_sports), unsafe_allow_html=True)
-
-            str_ui.markdown("### 💡 نصائح ذهبية لنجاح نظام زيادة الوزن")
-            str_ui.markdown(
-                "<div class='tip-box'><strong>1. زيادة السعرات التدريجية:</strong> حاول أن تأكل كميات أكبر قليلاً مما اعتدت عليه بالتدريج لكي لا تشعر بتخمة مفاجئة.</div>"
-                "<div class='tip-box'><strong>2. الدهون الصحية في كل وجبة:</strong> ركّز على زيت الزيتون، الأفوكادو، المكسرات، زبدة الفول السوداني، والطحينة.</div>"
-                "<div class='tip-box'><strong>3. الاستمرارية والراحة:</strong> التزم بالوجبات والتمارين مع النوم الكافي لأن العضلات تبني وتنمو وقت الراحة.</div>",
-                unsafe_allow_html=True,
-            )
-
-        else:
-            str_ui.markdown("<div class='diet-banner'><span class='pill-tag'>تنشيف وخسارة دهون</span><h3 style='margin: 4px 0; color: #7dd3fc !important;'>🔥 جدول الأكل اليومي (تقليل وزن وتنشيف)</h3><p style='margin: 0; color: #cbd5e1;'>جدول غذائي مرن ومتوازن يساعدك على خسارة الدهون والحفاظ على الكتلة العضلية — اختر بديلاً واحداً لكل وجبة.</p></div>", unsafe_allow_html=True)
-            cut_meals = [["<strong>🍳 الإفطار</strong>", "3 بيضات مسلوقة أو مقلية بملعقة زيت زيتون + ربع رغيف بلدي + خيار وجرجير", "4 ملاعق فول بزيت زيتون وكمون + ربع رغيف بلدي + بيضة مسلوقة أو قطعة جبنة قريش", "عجة بيض بالخضار (طماطم وفلفل) + ربع رغيف بلدي", "لبداية نشيطة ومشبعة لفترة طويلة."], ["<strong>🍽️ الغداء</strong>", "<span class='pill-tag'>بروتين</span> 150-200 جم صدور فراخ مشوية/مسلوقة أو لحم مفروم قليل الدهن<br><span class='pill-tag'>نشويات</span> 5 ملاعق أرز أو مكرونة<br><span class='pill-tag'>خضار</span> طبق خضار سوتيه + سلطة كبيرة", "<span class='pill-tag'>بروتين</span> 2 سمكة مشوية<br><span class='pill-tag'>نشويات</span> رغيف بلدي كامل أو 5 ملاعق أرز<br><span class='pill-tag'>خضار</span> طبق سلطة خضراء كبير", "<span class='pill-tag'>بروتين</span> علبة تونة مصفاة من الزيت<br><span class='pill-tag'>نشويات</span> رغيف بلدي كامل أو 5 ملاعق مكرونة<br><span class='pill-tag'>خضار</span> طبق خضار سوتيه + سلطة", "ملعقة زيت زيتون وليمون فقط على السلطة."], ["<strong>🥗 العشاء</strong>", "150 جم جبنة قريش بالطماطم والخيار ورشة زعتر + ربع رغيف بلدي", "علبة تونة مصفاة تماماً + طبق سلطة خضراء", "كوب زبادي يوناني (أو عادي) + نصف ملعقة عسل نحل + ملعقة بذر كتان أو شيا", "وجبة خفيفة ومناسبة قبل النوم."]]
-            str_ui.markdown(build_html_table(["الوجبة", "الخيار الأول", "الخيار الثاني", "الخيار الثالث", "ملاحظات هامة"], cut_meals), unsafe_allow_html=True)
-            str_ui.markdown("### 🏃‍♂️ الرياضة والتمارين المطلوبة (تقليل وزن وتنشيف)")
-            cut_sports = [["<strong>اليوم 1 و 4</strong>", "مشي سريع أو جري خفيف (Cardio) + تمارين بطن وجذع", "45 دقيقة • 4-5 أيام أسبوعياً"], ["<strong>اليوم 2 و 5</strong>", "تمارين مقاومة شاملة للجسم (Full Body Circuit) لحرق السعرات وحماية العضلات", "45 دقيقة • 4-5 أيام أسبوعياً"], ["<strong>اليوم 3</strong>", "نط الحبل أو عجلة رياضية ثابتة (HIIT) لرفع معدل الحرق", "30 دقيقة"], ["<strong>اليوم 6 و 7</strong>", "مشي خفيف في الهواء الطلق واستشفاء عضلي", "راحة وحركة خفيفة"]]
-            str_ui.markdown(build_html_table(["اليوم", "الرياضة والألعاب المطلوبة", "المدة وعدد الأيام"], cut_sports), unsafe_allow_html=True)
-            str_ui.markdown("### ⭐ القواعد الذهبية لسرعة النتائج")
-            str_ui.markdown("<div class='tip-box'><strong>💧 شرب المياه:</strong> من 2.5 إلى 3 لتر يومياً لزيادة معدل الحرق ومنع الإحساس الوهمي بالجوع.</div><div class='tip-box'><strong>🚶‍♀️ الحركة الخفيفة:</strong> المشي 15-20 دقيقة في منتصف اليوم أو بعد الغداء لتعويض الجلوس المكتبي.</div><div class='tip-box'><strong>🚫 السكر والمشروبات:</strong> استبدال السكر الأبيض بسكر دايت ومنع العصائر المحلاة تماماً.</div>", unsafe_allow_html=True)
-
-str_ui.markdown("---")
-str_ui.markdown("<p style='text-align: center; color: gray;'>النظام الخبير الطبي والرياضي المعتمد • مشروع تخرج قسم الذكاء الاصطناعي</p>", unsafe_allow_html=True)
-
-            
-            
+            if "1." in selected_disease:
+                render_condition(
+                    tr("1. مرض السكر (Diabetes)", "1. Diabetes"),
+                    [
+                        tr("قياس مستوى السكر بجهاز قياس السكر إن توفر.", "Check blood glucose level with a glucometer if available."),
+                        tr("شرب الماء بانتظام وتناول الوجبات في مواعيدها ومتابعة مستوى السكر وتسجيل القراءات.", "Drink water regularly, eat meals on time, and monitor/log blood glucose readings."),
+                        tr("إذا ظهرت أعراض انخفاض السكر، مثل الرعشة والتعرق والدوخة، والشخص واعٍ وقادر على البلع، يُعطى مصدر سكر سريع مثل نصف كوب عصير، ثم يُعاد القياس بعد 15 دقيقة.", "If low blood sugar symptoms appear (tremors, sweating, dizziness) and the person is conscious and able to swallow, give a fast sugar source like half a cup of juice and recheck after 15 minutes."),
+                        tr("الاستمرار على العلاج الموصوف وعدم تغيير جرعاته دون تعليمات الطبيب.", "Continue prescribed treatment and do not change doses without doctor instructions."),
+                    ],
+                    tr("إيقاف الإنسولين أو مضاعفة جرعات الدواء من تلقاء نفسك.", "Stopping insulin or doubling medication doses on your own."),
+                    tr("حدث فقدان للوعي، أو تشوش شديد، أو صعوبة تنفس، أو قيء مستمر، أو لم يستطع الشخص البلع. لا تعطِ فاقد الوعي أي طعام أو شراب.", "Loss of consciousness, severe confusion, trouble breathing, persistent vomiting, or inability to swallow. Do not give food or drink to an unconscious person."),
+                    tr("الالتزام بالعلاج الموصوف ومنظم السكر أو الإنسولين حسب تعليمات الطبيب.", "Adhere to prescribed therapy, glucose regulators, or insulin as directed by your physician."),
+                )
+            elif "2." in selected_disease:
+                render_condition(
+                    tr("2. ارتفاع ضغط الدم المزمن (Chronic Hypertension)", "2. Chronic Hypertension"),
+                    [
+                        tr("الجلوس في مكان هادئ والراحة.", "Sit in a calm place and rest."),
+                        tr("قياس ضغط الدم بعد الجلوس بهدوء.", "Measure blood pressure after sitting calmly."),
+                        tr("تجنب المجهود والتوتر مؤقتًا وتقليل الأطعمة شديدة الملوحة.", "Temporarily avoid exertion and stress, and reduce very salty foods."),
+                        tr("الالتزام بأدوية الضغط الموصوفة في مواعيدها.", "Take prescribed blood pressure medications on schedule."),
+                    ],
+                    tr("أخذ جرعة إضافية من دواء الضغط دون استشارة الطبيب.", "Taking an extra dose of blood pressure medication without consulting a doctor."),
+                    tr("صاحب ارتفاع الضغط ألم في الصدر، أو صعوبة تنفس، أو ضعف مفاجئ في أحد جانبي الجسم، أو اضطراب الكلام أو الرؤية، أو صداع شديد مفاجئ.", "High blood pressure accompanied by chest pain, trouble breathing, sudden one-sided weakness, speech or vision changes, or sudden severe headache."),
+                    tr("أدوية الضغط الموصوفة في مواعيدها الثابتة حسب إرشادات الطبيب.", "Prescribed blood pressure medications at fixed times as advised by your doctor."),
+                )
+            elif "3." in selected_disease:
+                render_condition(
+                    tr("3. أمراض القلب والأوعية الدموية (Cardiovascular Diseases)", "3. Cardiovascular Diseases"),
+                    [
+                        tr("إيقاف أي مجهود بدني.", "Stop any physical exertion."),
+                        tr("الجلوس في وضع مريح وتهدئة الشخص وعدم تركه بمفرده.", "Sit comfortably, calm the person, and do not leave them alone."),
+                        tr("استخدام الدواء الموصوف مسبقًا للحالة فقط وفق تعليمات الطبيب.", "Use previously prescribed medication for the condition only as instructed by the doctor."),
+                    ],
+                    tr("المشي أو ممارسة الرياضة لمحاولة التخلص من ألم الصدر، وعدم إعطاء أدوية عشوائية.", "Walking or exercising to try to relieve chest pain, and giving random medications."),
+                    tr("ظهر ألم أو ضغط بالصدر، أو امتد الألم إلى الذراع أو الفك أو الظهر، أو حدث عرق شديد أو دوخة أو ضيق تنفس. اتصل بالإسعاف 123 في مصر.", "Chest pain or pressure, pain radiating to arm, jaw, or back, heavy sweating, dizziness, or shortness of breath. Call ambulance 123 in Egypt."),
+                    tr("الدواء الموصوف مسبقاً للحالة فقط وفق تعليمات الطبيب.", "Medication previously prescribed for the condition only as directed by the doctor."),
+                )
+            elif "4." in selected_disease:
+                render_condition(
+                    tr("4. مشاكل الجهاز التنفسي (Respiratory Problems)", "4. Respiratory Problems"),
+                    [
+                        tr("الجلوس في وضع مستقيم.", "Sit in an upright position."),
+                        tr("الابتعاد عن الدخان والغبار والروائح القوية.", "Stay away from smoke, dust, and strong odors."),
+                        tr("توفير هواء نقي وتهوية المكان.", "Provide fresh air and ventilate the area."),
+                        tr("استخدام بخاخ الربو الموصوف للشخص وفق خطة الطبيب إن كان يعاني من الربو.", "Use the person's prescribed asthma inhaler according to the doctor's plan if they have asthma."),
+                    ],
+                    tr("التعرض للدخان أو استخدام بخاخات أو أدوية غير موصوفة.", "Exposure to smoke or using unprescribed inhalers or medications."),
+                    tr("كان هناك اختناق أو صعوبة شديدة في التنفس أو عدم القدرة على الكلام بشكل طبيعي أو ازرقاق الشفاه.", "Choking, severe difficulty breathing, inability to speak normally, or bluish lips."),
+                    tr("بخاخ الربو الموصوف وفق خطة الطبيب إن كان يعاني من الربو.", "Prescribed asthma inhaler according to the doctor's plan if applicable."),
+                )
+            elif "5." in selected_disease:
+                render_condition(
+                    tr("5. الحمى وارتفاع درجة الحرارة (Fever)", "5. Fever"),
+                    [
+                        tr("قياس درجة الحرارة بترمومتر.", "Measure temperature with a thermometer."),
+                        tr("شرب السوائل بانتظام والراحة والحصول على قسط كافٍ من النوم.", "Drink fluids regularly, rest, and get enough sleep."),
+                        tr("ارتداء ملابس خفيفة ومريحة واستخدام كمادات ماء فاتر عند الحاجة.", "Wear light, comfortable clothes and use lukewarm compresses when needed."),
+                    ],
+                    tr("تغطية الجسم بأغطية ثقيلة أو استخدام الماء المثلج أو الكحول لتخفيض الحرارة.", "Covering the body with heavy blankets or using ice-cold water or alcohol to lower fever."),
+                    tr("صاحبت الحمى صعوبة تنفس أو تشنجات أو تشوش في الوعي أو تيبس الرقبة أو صداع شديد غير معتاد.", "Fever accompanied by trouble breathing, seizures, altered consciousness, stiff neck, or unusually severe headache."),
+                    tr("Paracetamol (باراسيتامول) عند اللزوم حسب إرشادات الطبيب أو الصيدلي.", "Paracetamol when needed according to doctor or pharmacist instructions."),
+                )
+            elif "6." in selected_disease:
+                render_condition(
+                    tr("6. السعال والبرد والتهاب الحلق (Cough, Cold & Sore Throat)", "6. Cough, Cold & Sore Throat"),
+                    [
+                        tr("شرب المشروبات الدافئة.", "Drink warm beverages."),
+                        tr("تناول العسل لتخفيف السعال إذا لم توجد حساسية منه.", "Take honey to soothe cough if there is no allergy to it."),
+                        tr("الغرغرة بالماء الدافئ والملح مع عدم بلعه.", "Gargle with warm salt water without swallowing it."),
+                        tr("استخدام محلول ملحي للأنف والراحة وشرب كمية كافية من السوائل.", "Use nasal saline solution, rest, and drink enough fluids."),
+                    ],
+                    tr("التدخين والتعرض للهواء الملوث واستخدام المضادات الحيوية دون وصفة.", "Smoking, exposure to polluted air, and using antibiotics without a prescription."),
+                    tr("حدثت صعوبة في التنفس أو البلع، أو ألم شديد بالصدر، أو عدم القدرة على شرب السوائل.", "Difficulty breathing or swallowing, severe chest pain, or inability to drink fluids."),
+                    tr("Congestal (كنجستال)", "Congestal"),
+                )
+            elif "7." in selected_disease:
+                render_condition(
+                    tr("7. حموضة المعدة (Vonacidan)", "7. Acidity (Vonacidan)"),
+                    [
+                        tr("الجلوس في وضع مستقيم بعد الأكل وتجنب الاستلقاء مباشرة.", "Sit upright after eating and avoid lying down immediately."),
+                        tr("تناول وجبات صغيرة والابتعاد عن الأطعمة التي تزيد الحموضة.", "Eat small meals and avoid foods that increase acidity."),
+                    ],
+                    tr("الاستلقاء مباشرة بعد الطعام أو الأطعمة الدسمة والحارة.", "Lying down right after eating or heavy/spicy foods."),
+                    tr("ألم حاد في البطن أو قيء مستمر أو دموي أو براز داكن.", "Severe abdominal pain, persistent or bloody vomiting, or dark stools."),
+                    tr("Vonacidan (فوناسيدان)", "Vonacidan"),
+                )
+            elif "8." in selected_disease:
+                render_condition(
+                    tr("8. القولون العصبي (Replix)", "8. IBS (Replix)"),
+                    [
+                        tr("تجنب التوتر والقلق والأطعمة المهيجة للقولون.", "Avoid stress, anxiety, and colon-irritating foods."),
+                        tr("تناول وجبات منتظمة وشرب السوائل والمشروبات الدافئة المهدئة.", "Eat regular meals and drink soothing fluids/warm drinks."),
+                    ],
+                    tr("التوتر الشديد والأكل السريع والوجبات الدسمة.", "Severe stress, rushing meals, and heavy foods."),
+                    tr("فقدان وزن غير مبرر أو نزيف أو ألم شديد يوقظ من النوم.", "Unexplained weight loss, bleeding, or severe pain waking from sleep."),
+                    tr("Replix (ريبليكس)", "Replix"),
+                )
+            elif "9." in selected_disease:
+                render_condition(
+                    tr("9. الألم والصداع (Paracetamol)", "9. Pain & Headache (Paracetamol)"),
+                    [
+                        tr("الراحة في مكان هادئ وشرب الماء بانتظام.", "Rest in a quiet place and drink water regularly."),
+                        tr("تجنب الإجهاد الزائد والشاشات لفترات طويلة.", "Avoid overexertion and prolonged screens."),
+                    ],
+                    tr("الإفراط في المسكنات أو السهر وقلة النوم.", "Overusing painkillers or staying up 
