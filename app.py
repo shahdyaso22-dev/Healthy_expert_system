@@ -253,5 +253,47 @@ if str_ui.button(button_label, use_container_width=True):
                         tr("الراحة في مكان هادئ وشرب الماء بانتظام.", "Rest in a quiet place and drink water regularly."),
                         tr("تجنب الإجهاد الزائد والشاشات لفترات طويلة.", "Avoid overexertion and prolonged screens."),
                     ],
-                                        tr("الإفراط في المسكنات أو السهر وقلة النوم.", "Overusing painkillers or staying up late/lack of sleep."),
+                        tr("الإفراط في المسكنات أو السهر وقلة النوم.", "Overusing painkillers or staying up late/lack of sleep."),
 
+            elif "10." in selected_disease:
+                render_condition(
+                    tr("10. ارتجاع المريء (GERD)", "10. GERD (Acid Reflux)"),
+                    [
+                        tr("الجلوس في وضع مستقيم بعد تناول الطعام.", "Sit upright after eating."),
+                        tr("تناول وجبات صغيرة وتجنب الاستلقاء لمدة ساعتين إلى ثلاث ساعات بعد الأكل.", "Eat small meals and avoid lying down for 2-3 hours after eating."),
+                        tr("الابتعاد عن الأطعمة التي تزيد الحموضة لدى الشخص.", "Avoid foods that increase acidity for the person."),
+                        tr("رفع الجزء العلوي من الجسم أثناء النوم إذا كانت الأعراض ليلية.", "Elevate the upper body during sleep if symptoms occur at night."),
+                    ],
+                    tr("تناول وجبات كبيرة قبل النوم أو الاستلقاء مباشرة بعد الأكل.", "Eating large meals before bed or lying down immediately after eating."),
+                    tr("ظهر ألم شديد أو ضغط في الصدر، خاصة مع العرق أو ضيق التنفس أو الدوخة، أو حدث قيء دموي أو صعوبة شديدة في البلع.", "Severe chest pain or pressure, especially with sweating, shortness of breath, or dizziness, or bloody vomiting or severe difficulty swallowing."),
+                    tr("حسب إرشادات الطبيب المختص.", "As directed by the specialist physician."),
+                )
+            elif "11." in selected_disease:
+                render_condition(
+                    tr("11. آلام الظهر (Back Pain)", "11. Back Pain"),
+                    [
+                        tr("تجنب حمل الأشياء الثقيلة.", "Avoid lifting heavy objects."),
+                        tr("تغيير وضعية الجلوس باستمرار والمشي الخفيف والحركة الهادئة حسب القدرة.", "Change sitting posture continuously, walk lightly, and move gently as tolerated."),
+                        tr("استخدام كمادات باردة أو دافئة ملفوفة في قطعة قماش.", "Use cold or warm compresses wrapped in a cloth."),
+                        tr("الحصول على الراحة دون ملازمة السرير لفترات طويلة.", "Get rest without prolonged bed rest."),
+                    ],
+                    tr("الحركات المفاجئة أو حمل الأوزان أو التدليك العنيف.", "Sudden movements, lifting weights, or vigorous massage."),
+                    tr("صاحَب الألم ضعف مفاجئ بالساقين، أو فقدان التحكم في البول أو البراز، أو فقدان الإحساس بمنطقة ما بين الفخذين، أو حدث بعد إصابة قوية.", "Pain accompanied by sudden leg weakness, loss of bowel or bladder control, loss of sensation in the groin area, or after strong trauma."),
+                    tr("حسب إرشادات الطبيب المختص.", "As directed by the specialist physician."),
+                )
+            elif "12." in selected_disease:
+                render_condition(
+                    tr("12. آلام المفاصل والعضلات (Joint & Muscle Pain)", "12. Joint & Muscle Pain"),
+                    [
+                        tr("إراحة الجزء المصاب مؤقتًا.", "Rest the affected area temporarily."),
+                        tr("استخدام كمادات باردة ملفوفة في منشفة لمدة قصيرة عند وجود تورم حديث.", "Use cold compresses wrapped in a towel for a short time when there is recent swelling."),
+                        tr("تجنب المجهود والحركات التي تزيد الألم.", "Avoid exertion and movements that increase pain."),
+                        tr("تحريك المفصل بلطف عندما تسمح الحالة بذلك وشرب الماء بانتظام.", "Move the joint gently when condition allows and drink water regularly."),
+                    ],
+                    tr("الضغط على المفصل المصاب أو ممارسة الرياضة العنيفة أو استخدام أدوية دون استشارة.", "Pressing on the injured joint, doing intense exercise, or using medications without consultation."),
+                    tr("كان المفصل شديد التورم أو ساخنًا ومحمرًا، أو صاحبه ارتفاع حرارة، أو تعذر تحريكه أو تحميل الوزن عليه.", "Severe joint swelling, warmth, and redness, or accompanied by fever, or inability to move it or bear weight on it."),
+                    tr("حسب إرشادات الطبيب المختص.", "As directed by the specialist physician."),
+                )
+        else:
+            str_ui.info(tr("لا يوجد أمراض مسجلة حالياً — الحالة الصحية مستقرة.", "No diseases recorded currently — health status is stable."))
+    
