@@ -295,7 +295,7 @@ if str_ui.button(button_label, use_container_width=True):
                     tr("كان المفصل شديد التورم أو ساخنًا ومحمرًا، أو صاحبه ارتفاع حرارة، أو تعذر تحريكه أو تحميل الوزن عليه.", "Severe joint swelling, warmth, and redness, or accompanied by fever, or inability to move it or bear weight on it."),
                     tr("حسب إرشادات الطبيب المختص.", "As directed by the specialist physician."),
                 )
-     else:
+        else:
         str_ui.info(tr("لا يوجد أمراض مسجلة حالياً — الحالة الصحية مستقرة.", "No diseases recorded currently — health status is stable."))
         str_ui.markdown("## " + tr("🏋️‍♂️ البرنامج الرياضي والنظام الغذائي", "🏋️‍♂️ Sports & Nutrition Program"))
         c1, c2, c3 = str_ui.columns(3)
