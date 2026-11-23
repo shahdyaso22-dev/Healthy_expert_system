@@ -31,16 +31,16 @@ str_ui.markdown(css_code, unsafe_allow_html=True)
 
 def render_condition(title, initial_steps, avoid_text=None, emergency_text=None, med_text=""):
     str_ui.markdown("### " + title)
-    str_ui.markdown("**التصرف المبدئي:**")
+    str_ui.markdown("**" + tr("التصرف المبدئي:", "Initial Actions:") + "**")
     for step in initial_steps:
         str_ui.markdown("- " + step)
     if avoid_text:
-        str_ui.warning("**تجنب:** " + avoid_text)
+        str_ui.warning("**" + tr("تجنب:", "Avoid:") + "** " + avoid_text)
     if emergency_text:
-        str_ui.error("**🚨 اذهب للطوارئ فورًا إذا:** " + emergency_text)
+        str_ui.error("**" + tr("اذهب للطوارئ فوراً 🚨:", "Go to ER immediately 🚨:") + "** " + emergency_text)
     if med_text:
-        str_ui.success("**💊 الروشتة الطبية المعتمدة — الدواء الموصوف:** " + med_text)
-
+        str_ui.success("**" + tr("الروشتة الطبية المعتمدة - الدواء الموصوف 💊:", "Approved Medical Prescription - Medication 💊:") + "** " + med_text)
+        
 
 def build_html_table(headers, rows):
     th_html = "".join(["<th>" + h + "</th>" for h in headers])
@@ -57,15 +57,15 @@ def build_html_table(headers, rows):
     )
 
 
-str_ui.title("🩺 النظام الخبير الطبي والرياضي الذكي بالذكاء الاصطناعي")
+str_ui.title(tr("النظام الخبير الطبي والرياضي الذكي بالذكاء الاصطناعي 🧠", "AI Clinical, Medical & Sports Expert System 🧠"))
 str_ui.markdown("<p style='color: #94a3b8; font-size: 18px;'>تشخيص طبي منفصل وإرشادات طوارئ + برامج رياضية وجداول غذائية متكاملة</p>", unsafe_allow_html=True)
-str_ui.markdown("---")
+str_ui.markdown("<p style='color: #94a3b8; font-size: 18px;'>" + tr("تشخيص طبي منفصل وإرشادات طوارئ + برامج رياضية وجداول غذائية متكاملة", "Separate medical diagnosis & emergency guidance + workout plans & full meal tables") + "</p>", unsafe_allow_html=True)
 
-str_ui.sidebar.header("👤 الملف الشخصي للمريض والرياضي")
-age = str_ui.sidebar.number_input("العمر (بالسنوات)", 1, 120, 22)
-weight = str_ui.sidebar.number_input("الوزن (كجم)", 20.0, 250.0, 70.0)
-height = str_ui.sidebar.number_input("الطول (سم)", 50.0, 250.0, 172.0)
-gender = str_ui.sidebar.selectbox("الجنس", ["ذكر", "أنثى"])
+str_ui.sidebar.header(tr("الملف الشخصي للمريض والرياضي", "Patient & Athlete Profile"))
+age = str_ui.sidebar.number_input(tr("العمر (بالسنوات)", "Age (years)"), 1, 120, 22)
+weight = str_ui.sidebar.number_input(tr("الوزن (كجم)", "Weight (kg)"), 20.0, 250.0, 70.0)
+height = str_ui.sidebar.number_input(tr("الطول (سم)", "Height (cm)"), 50.0, 250.0, 172.0)
+gender = str_ui.sidebar.selectbox(tr("الجنس", "Gender"), [tr("أنثى", "Female"), tr("ذكر", "Male")])
 activity_level = str_ui.sidebar.selectbox(
     "مستوى النشاط البدني والحركة",
     [
