@@ -6,6 +6,8 @@ str_ui.set_page_config(
     layout="wide",
 )
 
+lang_choice = str_ui.radio("🌐 اللغة / Language", ["العربية", "English"], horizontal=True)
+def tr(ar_txt, en_txt): return ar_txt if lang_choice == "العربية" else en_txt
 css_code = (
     "<style>"
     ".stApp { background: radial-gradient(circle at top right, #0f172a, #020617 70%); color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }"
