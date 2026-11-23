@@ -353,4 +353,5 @@ if str_ui.button(button_label, use_container_width=True):
             ]
             str_ui.markdown(build_html_table(["الوجبة والوقت", "مكونات الوجبة المقترحة", "القيمة والفوائد الغذائية"], gain_meals), unsafe_allow_html=True)
 
-            str_ui.markdown("### 💪 الرياضة والتمارين المطلوبة (زيادة الوز
+            str_ui.markdown("### 💪 الرياضة والتمارين المطلوبة (زيادة الوزن وبناء العضلات)")
+            
