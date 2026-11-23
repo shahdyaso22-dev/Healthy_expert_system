@@ -301,17 +301,90 @@ if str_ui.button(button_label, use_container_width=True):
             c1, c2, c3 = str_ui.columns(3)
             c1.metric(tr("البيانات البدنية", "Physical Profile"), f"{age} " + tr("سنة", "yrs") + f" | {gender}")
             c2.metric(tr("مؤشر كتلة الجسم (BMI)", "Body Mass Index (BMI)"), f"{bmi:.1f}", bmi_cat)
-            c3.metric(tr("الهدف المختار", "Selected Goal"), fitness_goal)
+            c3.metric(tr("الهدف المختار", "Selected Goal"), fitness_goal or tr("غير محدد", "Not Set"))
             str_ui.info("**" + tr("مستوى النشاط البدني:", "Physical Activity Level:") + f"** {activity_level}")
 
-        if fitness_goal and ("زيادة وزن" in fitness_goal or "Weight Gain" in fitness_goal):
-            str_ui.markdown(
-                "<div class='diet-banner'>"
-                "<span class='pill-tag'>" + tr("فائض سعرات صحي ومتوازن", "Healthy Balanced Calorie Surplus") + "</span>"
-                "<h3 style='margin: 4px 0; color: #7dd3fc !important;'>" + tr("📈 جدول النظام الغذائي لزيادة الوزن وبناء العضلات", "📈 Weight Gain & Muscle Building Meal Plan") + "</h3>"
-                "<p style='margin: 0; color: #cbd5e1;'>" + tr("خطة يومية متكاملة من 6 وجبات لزيادة الكتلة العضلية والوزن الصحي بأمان.", "Complete 6-meal daily plan to safely increase muscle mass and healthy weight.") + "</p>"
-                "</div>",
-                unsafe_allow_html=True,
+            goal_txt = str(fitness_goal or "")
+            is_gain = ("زيادة وزن" in goal_txt) or ("Weight Gain" in goal_txt) or ("زيادة" in goal_txt)
+
+            if is_gain:
+                str_ui.markdown(
+                    """
+                    <div class='diet-banner'>
+                        <span class='pill-tag'>""" + tr("فائض سعرات صحي ومتوازن", "Healthy Balanced Calorie Surplus") + """</span>
+                        <h3 style='margin: 4px 0; color: #7dd3fc !important;'>""" + tr("📈 جدول النظام الغذائي لزيادة الوزن وبناء العضلات", "📈 Weight Gain & Muscle Building Diet Plan") + """</h3>
+                        <p style='margin: 0; color: #cbd5e1;'>""" + tr("خطة يومية متكاملة من 6 وجبات لزيادة الكتلة العضلية والوزن الصحي بأمان.", "Complete 6-meal daily plan for safe muscle and weight gain.") + """</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+                gain_meals = [
+                    ["<strong>" + tr("الفطار", "Breakfast") + "</strong><br><span style='color:#38bdf8;'>" + tr("صباحاً", "Morning") + "</span>", tr("شوفان أو بيض + حليب + تمر أو فاكهة", "Oats or eggs + milk + dates or fruit")],
+                    ["<strong>" + tr("وجبة خفيفة 1", "Snack 1") + "</strong><br><span style='color:#38bdf8;'>" + tr("قبل الظهر", "Mid-Morning") + "</span>", tr("مكسرات + زبادي أو فاكهة", "Nuts + yogurt or fruit")],
+                    ["<strong>" + tr("الغداء (الوجبة الرئيسية)", "Lunch (Main Meal)") + "</strong><br><span style='color:#38bdf8;'>" + tr("الظهر", "Afternoon") + "</span>", tr("مصدر بروتين + أرز أو مكرونة + خضار", "Protein source + rice or pasta + vegetables")],
+                    ["<strong>" + tr("وجبة 2 (قبل التمرين)", "Meal 2 (Pre-Workout)") + "</strong><br><span style='color:#38bdf8;'>" + tr("قبل التمرين", "Pre-Workout") + "</span>", tr("موزة أو بطاطس مسلوقة + مصدر بروتين خفيف", "Banana or boiled potato + light protein")],
+                    ["<strong>" + tr("العشاء", "Dinner") + "</strong><br><span style='color:#38bdf8;'>" + tr("مساءً", "Evening") + "</span>", tr("جبن أو بيض أو تونة + خبز + سلطة", "Cheese or eggs or tuna + bread + salad")],
+                    ["<strong>" + tr("قبل النوم مباشرة", "Before Bed") + "</strong><br><span style='color:#38bdf8;'>" + tr("قبل النوم", "Before Bed") + "</span>", tr("كوب حليب أو زبادي", "Cup of milk or yogurt")],
+                ]
+                str_ui.markdown(build_html_table([tr("الوجبة والفترة", "Meal & Period"), tr("مكونات الوجبة المقترحة", "Suggested Meal Components")], gain_meals), unsafe_allow_html=True)
+
+                str_ui.markdown("### " + tr("🏋️‍♂️ الرياضة والتمارين المطلوبة (زيادة وزن وبناء عضلات)", "🏋️‍♂️ Required Sports & Workouts (Weight Gain & Muscle Building)"))
+                gain_sports = [
+                    ["<strong>" + tr("اليوم 1", "Day 1") + "</strong>", tr("تمارين مقاومة: صدر، كتف أمامي وجانبي، وترايسبس (45 - 60 دقيقة • 4 أيام أسبوعياً)", "Resistance: chest, front/side delts, triceps (45-60 min • 4 days/week)")],
+                    ["<strong>" + tr("اليوم 2", "Day 2") + "</strong>", tr("تمارين مقاومة: ظهر، كتف خلفي، وبايسبس (45 - 60 دقيقة • 4 أيام أسبوعياً)", "Resistance: back, rear delts, biceps (45-60 min • 4 days/week)")],
+                    ["<strong>" + tr("اليوم 3", "Day 3") + "</strong>", tr("راحة تامة واستشفاء عضلي", "Complete rest and muscle recovery")],
+                    ["<strong>" + tr("اليوم 4", "Day 4") + "</strong>", tr("تمارين مقاومة شاملة: فخذ أمامي وخلفي وسمانة (45 - 60 دقيقة • 4 أيام أسبوعياً)", "Full lower body resistance: quads, hamstrings, calves (45-60 min • 4 days/week)")],
+                    ["<strong>" + tr("اليوم 5", "Day 5") + "</strong>", tr("تمارين جزء علوي وبطن (Upper Body & Core) (45 - 60 دقيقة • 4 أيام أسبوعياً)", "Upper body & core workout (45-60 min • 4 days/week)")],
+                    ["<strong>" + tr("اليوم 6 و 7", "Days 6 & 7") + "</strong>", tr("راحة ومرونة واستشفاء عضلي", "Rest, mobility, and recovery")],
+                ]
+                str_ui.markdown(build_html_table([tr("اليوم", "Day"), tr("الرياضة والتمارين المطلوبة", "Required Sports & Workouts")], gain_sports), unsafe_allow_html=True)
+
+                str_ui.markdown("### " + tr("💡 نصائح ذهبية لنجاح نظام زيادة الوزن", "💡 Golden Tips for Weight Gain Success"))
+                str_ui.markdown(
+                    """
+                    <div class='tip-box'><strong>""" + tr("1. زيادة السعرات التدريجية:", "1. Gradual Calorie Surplus:") + """</strong> """ + tr("زوّدي السعرات تدريجياً بدون حرمان أو إفراط مفاجئ.", "Increase calories gradually without extreme rush.") + """</div>
+                    <div class='tip-box'><strong>""" + tr("2. الدهون الصحية في كل وجبة:", "2. Healthy Fats in Every Meal:") + """</strong> """ + tr("أضيفي زيت زيتون، مكسرات، أو أفوكادو لرفع السعرات بذكاء.", "Add olive oil, nuts, or avocado to boost calories smartly.") + """</div>
+                    <div class='tip-box'><strong>""" + tr("3. الاستمرارية والراحة:", "3. Consistency & Rest:") + """</strong> """ + tr("الالتزام بالتمارين والنوم الكافي أساس بناء الكتلة العضلية.", "Consistent training and adequate sleep drive muscle growth.") + """</div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+            else:
+                str_ui.markdown(
+                    """
+                    <div class='diet-banner'>
+                        <span class='pill-tag'>""" + tr("تنشيف وخسارة دهون", "Cutting & Fat Loss") + """</span>
+                        <h3 style='margin: 4px 0; color: #7dd3fc !important;'>""" + tr("🔥 جدول النظام الغذائي لتقليل الوزن والتنشيف", "🔥 Weight Loss & Cutting Diet Plan") + """</h3>
+                        <p style='margin: 0; color: #cbd5e1;'>""" + tr("خطة متوازنة عالية البروتين لتقليل الوزن والحفاظ على الكتلة العضلية.", "Balanced high-protein plan for weight loss and muscle preservation.") + """</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+                cut_meals = [
+                    ["<strong>" + tr("الفطار", "Breakfast") + "</strong>", tr("2 بيضة مسلوقة أو أومليت بملعقة زيت زيتون + ربع رغيف بلدي + خيار وجرجير", "2 boiled eggs or omelet with 1 tsp olive oil + 1/4 baladi bread + cucumber & arugula"), tr("كوب زبادي لايت أو قريش + شوفان قليل + خيار", "Cup of light yogurt or cottage cheese + small oats + cucumber")],
+                    ["<strong>" + tr("الغداء", "Lunch") + "</strong>", tr("صدر دجاج مشوي أو سمك مشوي + طبق سلطة كبير + 4-6 ملاعق أرز أو بطاطس مسلوقة", "Grilled chicken breast or grilled fish + large salad + 4-6 tbsp rice or boiled potato"), tr("تونة مصفاة أو لحم خالي الدهن + خضار سوتيه أو سلطة + حصة نشويات بسيطة", "Drained tuna or lean meat + sautéed veggies or salad + small carb portion")],
+                    ["<strong>" + tr("العشاء", "Dinner") + "</strong>", tr("جبن قريش أو زبادي يوناني بالخيار والنعناع + ربع رغيف بلدي", "Cottage cheese or Greek yogurt with cucumber & mint + 1/4 baladi bread"), tr("بيضة مسلوقة + طبق سلطة خضراء بدون زيوت ثقيلة", "Boiled egg + green salad without heavy oils")],
+                ]
+                str_ui.markdown(build_html_table([tr("الوجبة", "Meal"), tr("الخيار الأول", "Option 1"), tr("الخيار الثاني", "Option 2")], cut_meals), unsafe_allow_html=True)
+
+                str_ui.markdown("### " + tr("🏃‍♀️ الرياضة والتمارين المطلوبة (تقليل وزن وتنشيف)", "🏃‍♀️ Required Sports & Workouts (Weight Loss & Cutting)"))
+                cut_sports = [
+                    ["<strong>" + tr("اليوم 1 و 4", "Days 1 & 4") + "</strong>", tr("تمارين كارديو (Cardio): مشي سريع أو جري خفيف (30 - 45 دقيقة)", "Cardio: brisk walking or light jogging (30-45 min)")],
+                    ["<strong>" + tr("اليوم 2 و 5", "Days 2 & 5") + "</strong>", tr("تمارين مقاومة كاملة للجسم (Full Body Circuit) لحماية العضلات ورفع الحرق", "Full body resistance circuit to protect muscle and boost burn")],
+                    ["<strong>" + tr("اليوم 3", "Day 3") + "</strong>", tr("كارديو متقطع خفيف أو حبل قفز أو عجلة ثابتة (20 - 30 دقيقة)", "Light interval cardio, jump rope, or stationary bike (20-30 min)")],
+                    ["<strong>" + tr("اليوم 6 و 7", "Days 6 & 7") + "</strong>", tr("مشي خفيف في الهواء الطلق واستشفاء عضلي", "Light outdoor walk and active recovery")],
+                ]
+                str_ui.markdown(build_html_table([tr("اليوم", "Day"), tr("الرياضة والتمارين المطلوبة", "Required Sports & Workouts")], cut_sports), unsafe_allow_html=True)
+
+                str_ui.markdown("### " + tr("💡 قواعد أساسية لنجاح التنشيف وتقليل الوزن", "💡 Core Rules for Successful Cutting & Weight Loss"))
+                str_ui.markdown(
+                    """
+                    <div class='tip-box'><strong>""" + tr("1. عجز سعرات مدروس:", "1. Controlled Calorie Deficit:") + """</strong> """ + tr("قللي السعرات باعتدال مع الحفاظ على البروتين لتقليل الدهون لا العضلات.", "Maintain a moderate deficit with high protein to lose fat, not muscle.") + """</div>
+                    <div class='tip-box'><strong>""" + tr("2. شرب الماء والألياف:", "2. Hydration & Fiber:") + """</strong> """ + tr("اشربي ماء كافياً وأكثري من الخضار والسلطة لزيادة الإحساس بالشبع.", "Drink plenty of water and eat vegetables/salad for fullness.") + """</div>
+                    <div class='tip-box'><strong>""" + tr("3. النوم والانتظام:", "3. Sleep & Consistency:") + """</strong> """ + tr("النوم المنتظم يظبط هرمونات الجوع والشبع ويحسن الأداء الرياضي.", "Regular sleep regulates hunger hormones and improves workout performance.") + """</div>
+                    """,
+                    unsafe_allow_html=True,
             )
 
             gain_meals = [
