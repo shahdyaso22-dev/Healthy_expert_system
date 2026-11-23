@@ -7,91 +7,33 @@ str_ui.set_page_config(
     layout="wide",
 )
 
-# 2. تصميم عصري منور وجداول منسقة بظل مضيء
+# 2. تصميم عصري منور (Cyber-Medical Dark & Glowing Blue UI)
 str_ui.markdown(
-    """
-    <style>
-    .stApp {
-        background: radial-gradient(circle at top right, #0f172a, #020617 70%);
-        color: #f8fafc;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #0b1120 0%, #020617 100%);
-        border-right: 1px solid rgba(56, 189, 248, 0.25);
-    }
-    h1 {
-        background: linear-gradient(90deg, #38bdf8, #818cf8, #2dd4bf);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 800 !important;
-        text-shadow: 0px 0px 25px rgba(56, 189, 248, 0.3);
-    }
-    h2, h3 {
-        color: #38bdf8 !important;
-        font-weight: 700 !important;
-    }
-    .stButton > button {
-        background: linear-gradient(90deg, #0284c7 0%, #2563eb 50%, #0ea5e9 100%) !important;
-        color: white !important;
-        font-weight: bold !important;
-        font-size: 18px !important;
-        border: none !important;
-        border-radius: 12px !important;
-        padding: 14px 24px !important;
-        box-shadow: 0 0 20px rgba(14, 165, 233, 0.5) !important;
-        transition: all 0.3s ease !important;
-    }
-    .stButton > button:hover {
-        box-shadow: 0 0 35px rgba(56, 189, 248, 0.85) !important;
-        transform: translateY(-2px);
-    }
-    table {
-        width: 100%;
-        border-collapse: separate !important;
-        border-spacing: 0 !important;
-        background-color: rgba(15, 23, 42, 0.92) !important;
-        border-radius: 12px !important;
-        overflow: hidden !important;
-        box-shadow: 0 10px 30px rgba(2, 132, 199, 0.28), 0 0 18px rgba(45, 212, 191, 0.12);
-    }
-    th {
-        background: linear-gradient(90deg, rgba(2, 132, 199, 0.55), rgba(15, 118, 110, 0.45)) !important;
-        color: #e0f2fe !important;
-        font-weight: 700 !important;
-        padding: 13px 14px !important;
-        border-bottom: 2px solid #38bdf8 !important;
-        text-align: right !important;
-    }
-    td {
-        padding: 12px 14px !important;
-        border-bottom: 1px solid rgba(56, 189, 248, 0.16) !important;
-        color: #f1f5f9 !important;
-        text-align: right !important;
-    }
-    tr:last-child td {
-        border-bottom: none !important;
-    }
-    tr:hover td {
-        background-color: rgba(56, 189, 248, 0.08) !important;
-    }
-    </style>
-    """,
+    '<style>'
+    '.stApp { background: radial-gradient(circle at top right, #0f172a, #020617 70%); color: #f8fafc; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; }'
+    '[data-testid="stSidebar"] { background: linear-gradient(180deg, #0b1120 0%, #020617 100%); border-right: 1px solid rgba(56, 189, 248, 0.25); }'
+    'h1 { background: linear-gradient(90deg, #38bdf8, #818cf8, #2dd4bf); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800 !important; }'
+    'h2, h3 { color: #38bdf8 !important; font-weight: 700 !important; }'
+    '.stButton > button { background: linear-gradient(90deg, #0284c7 0%, #2563eb 50%, #0ea5e9 100%) !important; color: white !important; font-weight: bold !important; font-size: 18px !important; border: none !important; border-radius: 12px !important; padding: 14px 24px !important; box-shadow: 0 0 20px rgba(14, 165, 233, 0.5) !important; }'
+    '[data-testid="stTable"] { background: rgba(15, 23, 42, 0.92) !important; border-radius: 14px !important; box-shadow: 0 10px 28px rgba(2, 132, 199, 0.32), 0 0 16px rgba(45, 212, 191, 0.14) !important; border: 1px solid rgba(56, 189, 248, 0.45) !important; }'
+    '[data-testid="stTable"] th { background: rgba(2, 132, 199, 0.45) !important; color: #e0f2fe !important; text-align: right !important; }'
+    '[data-testid="stTable"] td { color: #f1f5f9 !important; text-align: right !important; border-bottom: 1px solid rgba(56, 189, 248, 0.15) !important; }'
+    '</style>',
     unsafe_allow_html=True,
 )
 
 
 def render_condition(title, initial_steps, avoid_text=None, emergency_text=None, med_text=""):
-    str_ui.markdown(f"### {title}")
+    str_ui.markdown("### " + title)
     str_ui.markdown("**التصرف المبدئي:**")
     for step in initial_steps:
-        str_ui.markdown(f"- {step}")
+        str_ui.markdown("- " + step)
     if avoid_text:
-        str_ui.warning(f"**تجنب:** {avoid_text}")
+        str_ui.warning("**تجنب:** " + avoid_text)
     if emergency_text:
-        str_ui.error(f"**🚨 اذهب للطوارئ فورًا إذا:** {emergency_text}")
+        str_ui.error("**🚨 اذهب للطوارئ فورًا إذا:** " + emergency_text)
     if med_text:
-        str_ui.success(f"**💊 الروشتة الطبية المعتمدة — الدواء الموصوف:** {med_text}")
+        str_ui.success("**💊 الروشتة الطبية المعتمدة — الدواء الموصوف:** " + med_text)
 
 
 # العنوان الرئيسي
@@ -364,69 +306,51 @@ if str_ui.button(button_label, use_container_width=True):
 
         if "زيادة وزن" in fitness_goal:
             str_ui.markdown("### 💪 الرياضة والألعاب المطلوبة (زيادة الوزن وبناء العضلات)")
-            str_ui.markdown(
-                """
-| اليوم | الرياضة / التمارين المطلوبة | المدة وعدد الأيام |
-| :--- | :--- | :--- |
-| **اليوم 1** | تمارين مقاومة دفع (صدر، كتف أمامي وجانبي، ترايسبس) | 60 دقيقة (أوزان متدرجة 8-10 عدات) |
-| **اليوم 2** | تمارين مقاومة سحب (ظهر، بايسبس، كتف خلفي) | 60 دقيقة (أوزان متدرجة 8-10 عدات) |
-| **اليوم 3** | راحة واستشفاء عضلي | راحة تامة |
-| **اليوم 4** | تمارين أرجل كاملة (سكوات، طعنات، عضلة خلفية وسمانة) | 60 دقيقة (تركيز على الأداء الصحيح) |
-| **اليوم 5** | تمارين جزء علوي وتقوية الجذع (Upper Body & Core) | 50 دقيقة |
-| **اليوم 6 و 7** | راحة ونوم كافٍ لتعافي العضلات | راحة واستشفاء (4-5 أيام تمرين أسبوعياً) |
-                """
-            )
+            sports_rows = [
+                {"اليوم": "اليوم 1", "الرياضة / التمارين المطلوبة": "تمارين مقاومة دفع (صدر، كتف أمامي وجانبي، ترايسبس)", "المدة وعدد الأيام": "60 دقيقة (أوزان متدرجة 8-10 عدات)"},
+                {"اليوم": "اليوم 2", "الرياضة / التمارين المطلوبة": "تمارين مقاومة سحب (ظهر، بايسبس، كتف خلفي)", "المدة وعدد الأيام": "60 دقيقة (أوزان متدرجة 8-10 عدات)"},
+                {"اليوم": "اليوم 3", "الرياضة / التمارين المطلوبة": "راحة واستشفاء عضلي", "المدة وعدد الأيام": "راحة تامة"},
+                {"اليوم": "اليوم 4", "الرياضة / التمارين المطلوبة": "تمارين أرجل كاملة (سكوات، طعنات، عضلة خلفية وسمانة)", "المدة وعدد الأيام": "60 دقيقة (تركيز على الأداء الصحيح)"},
+                {"اليوم": "اليوم 5", "الرياضة / التمارين المطلوبة": "تمارين جزء علوي وتقوية الجذع (Upper Body & Core)", "المدة وعدد الأيام": "50 دقيقة"},
+                {"اليوم": "اليوم 6 و 7", "الرياضة / التمارين المطلوبة": "راحة ونوم كافٍ لتعافي العضلات", "المدة وعدد الأيام": "راحة واستشفاء (4-5 أيام تمرين أسبوعياً)"},
+            ]
+            str_ui.table(sports_rows)
 
             str_ui.markdown("### 🥗 جدول الأكل المخصص لزيادة الوزن (Bulking)")
-            str_ui.markdown(
-                """
-| الوجبة | الخيار الأول | الخيار الثاني | ملاحظة غذائية |
-| :--- | :--- | :--- | :--- |
-| 🍳 **الإفطار** | 3 بيضات مقلية بالزبدة + 2 توست أسمر أو عيش بلدي | شوفان بالحليب كامل الدسم + موزة + ملعقة عسل | سعرات عالية وطاقة لبداية اليوم |
-| 🥜 **سناك** | حفنة مكسرات مشكلة + تمر أو فواكه مجففة | كوب حليب كامل الدسم + معلقة زبدة فول سوداني | دعم السعرات الحرارية اليومية |
-| 🍗 **الغداء** | طبق أرز مصري + 200 جم لحم أو دجاج + خضار | مكرونة بصوص الطماطم أو الأبيض + صدور دجاج | بروتين وكربوهيدرات للبناء العضلي |
-| 🥗 **العشاء** | فول مدمس بزيت الزيتون + بيضة مسلوقة | 150 جم جبنة قريش + خبز + كوب لبن | وجبة مسائية مغذية ومشبعة |
-                """
-            )
+            diet_rows = [
+                {"الوجبة": "🍳 الإفطار", "الخيار الأول": "3 بيضات مقلية بالزبدة + 2 توست أسمر أو عيش بلدي", "الخيار الثاني": "شوفان بالحليب كامل الدسم + موزة + ملعقة عسل", "ملاحظة غذائية": "سعرات عالية وطاقة لبداية اليوم"},
+                {"الوجبة": "🥜 سناك", "الخيار الأول": "حفنة مكسرات مشكلة + تمر أو فواكه مجففة", "الخيار الثاني": "كوب حليب كامل الدسم + معلقة زبدة فول سوداني", "ملاحظة غذائية": "دعم السعرات الحرارية اليومية"},
+                {"الوجبة": "🍗 الغداء", "الخيار الأول": "طبق أرز مصري + 200 جم لحم أو دجاج + خضار", "الخيار الثاني": "مكرونة بصوص الطماطم أو الأبيض + صدور دجاج", "ملاحظة غذائية": "بروتين وكربوهيدرات للبناء العضلي"},
+                {"الوجبة": "🥗 العشاء", "الخيار الأول": "فول مدمس بزيت الزيتون + بيضة مسلوقة", "الخيار الثاني": "150 جم جبنة قريش + خبز + كوب لبن", "ملاحظة غذائية": "وجبة مسائية مغذية ومشبعة"},
+            ]
+            str_ui.table(diet_rows)
 
         elif "تخسيس" in fitness_goal:
             str_ui.markdown("### 🔥 الرياضة والألعاب المطلوبة (تخسيس وتنشيف)")
-            str_ui.markdown(
-                """
-| اليوم | الرياضة / التمارين المطلوبة | المدة وعدد الأيام |
-| :--- | :--- | :--- |
-| **اليوم 1 و 4** | مشي سريع أو جري خفيف (Cardio) + تمارين بطن | 45 دقيقة |
-| **اليوم 2 و 5** | تمارين مقاومة شاملة للجسم (Full Body Circuit) | 45 دقيقة |
-| **اليوم 3** | نط الحبل أو عجلة رياضية ثابتة (HIIT) | 30 دقيقة |
-| **اليوم 6 و 7** | استشفاء وحركة خفيفة | راحة (4-5 أيام تمرين أسبوعياً) |
-                """
-            )
+            sports_rows = [
+                {"اليوم": "اليوم 1 و 4", "الرياضة / التمارين المطلوبة": "مشي سريع أو جري خفيف (Cardio) + تمارين بطن", "المدة وعدد الأيام": "45 دقيقة"},
+                {"اليوم": "اليوم 2 و 5", "الرياضة / التمارين المطلوبة": "تمارين مقاومة شاملة للجسم (Full Body Circuit)", "المدة وعدد الأيام": "45 دقيقة"},
+                {"اليوم": "اليوم 3", "الرياضة / التمارين المطلوبة": "نط الحبل أو عجلة رياضية ثابتة (HIIT)", "المدة وعدد الأيام": "30 دقيقة"},
+                {"اليوم": "اليوم 6 و 7", "الرياضة / التمارين المطلوبة": "استشفاء وحركة خفيفة", "المدة وعدد الأيام": "راحة (4-5 أيام تمرين أسبوعياً)"},
+            ]
+            str_ui.table(sports_rows)
 
             str_ui.markdown("### 🥗 جدول الأكل المخصص للتخسيس والتنشيف (Cutting)")
-            str_ui.markdown(
-                """
-| الوجبة | الخيار الأول | الخيار الثاني | ملاحظة غذائية |
-| :--- | :--- | :--- | :--- |
-| 🍳 **الإفطار** | 3 بيضات مسلوقة + خيار وخضروات ورقية | شوفان بالماء أو حليب خالي الدسم + قرفة | بروتين عالي وشبع لفترة أطول |
-| 🍗 **الغداء** | 150 جم صدور دجاج مشوية + طبق سلطة خضراء | سمك مشوي + خضار سوتيه | سعرات منخفضة وبروتين صافي |
-| 🥗 **العشاء** | 150 جم جبنة قريش + شرائح طماطم وخيار | علبة تونة مصفاة من الزيت + سلطة | وجبة خفيفة مناسبة لليل |
-                """
-            )
+            diet_rows = [
+                {"الوجبة": "🍳 الإفطار", "الخيار الأول": "3 بيضات مسلوقة + خيار وخضروات ورقية", "الخيار الثاني": "شوفان بالماء أو حليب خالي الدسم + قرفة", "ملاحظة غذائية": "بروتين عالي وشبع لفترة أطول"},
+                {"الوجبة": "🍗 الغداء", "الخيار الأول": "150 جم صدور دجاج مشوية + طبق سلطة خضراء", "الخيار الثاني": "سمك مشوي + خضار سوتيه", "ملاحظة غذائية": "سعرات منخفضة وبروتين صافي"},
+                {"الوجبة": "🥗 العشاء", "الخيار الأول": "150 جم جبنة قريش + شرائح طماطم وخيار", "الخيار الثاني": "علبة تونة مصفاة من الزيت + سلطة", "ملاحظة غذائية": "وجبة خفيفة مناسبة لليل"},
+            ]
+            str_ui.table(diet_rows)
 
         else:
             str_ui.markdown("### ⚡ الرياضة والألعاب المطلوبة (لياقة عامة والحفاظ على الوزن)")
-            str_ui.markdown(
-                """
-| الأيام | الرياضة / التمارين المطلوبة | المدة وعدد الأيام |
-| :--- | :--- | :--- |
-| **3 أيام أسبوعياً** | مشي سريع أو سباحة أو جري خفيف + تمارين إطالة | 30 إلى 40 دقيقة لكل جلسة |
-| **باقي الأيام** | حركة يومية طبيعية ونشاط معتدل | حسب القدرة والراحة |
-                """
-            )
+            sports_rows = [
+                {"الأيام": "3 أيام أسبوعياً", "الرياضة / التمارين المطلوبة": "مشي سريع أو سباحة أو جري خفيف + تمارين إطالة", "المدة وعدد الأيام": "30 إلى 40 دقيقة لكل جلسة"},
+                {"الأيام": "باقي الأيام", "الرياضة / التمارين المطلوبة": "حركة يومية طبيعية ونشاط معتدل", "المدة وعدد الأيام": "حسب القدرة والراحة"},
+            ]
+            str_ui.table(sports_rows)
 
             str_ui.markdown("### 🥗 جدول الأكل المخصص للياقة العامة والحفاظ على الوزن")
-            str_ui.markdown(
-                """
-| الوجبة | الخيار الأول | الخيار الثاني | ملاحظة غذائية |
-| :--- | :--- | :--- | :--- |
-| 🍳 **الإفطار** | بيضتان + قطعة جبن + خضروات | شوفان مع حليب ونصف ثمرة فاكهة | توازن غذائي ي
+            diet_rows = [
+                {"الوجبة": "🍳 الإفطار", "الخيار الأول": "بيضتان + قطعة جبن +
