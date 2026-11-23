@@ -372,5 +372,6 @@ if str_ui.button(button_label, use_container_width=True):
                 "<div class='tip-box'><strong>3. الاستمرارية والراحة:</strong> التزم بالوجبات والتمارين مع النوم الكافي لأن العضلات تبني وتنمو وقت الراحة.</div>",
                 unsafe_allow_html=True,
             )
-                str_ui.markdown("### 💪 الرياضة والتمارين المطلوبة (زيادة الوزن وبناء العضلات)")
+                            str_ui.markdown("### 💪 الرياضة والتمارين المطلوبة (زيادة الوزن وبناء العضلات)")
+            
             
