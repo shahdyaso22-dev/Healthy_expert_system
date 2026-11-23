@@ -126,7 +126,7 @@ else:
 if str_ui.button(button_label, use_container_width=True):
     height_m = height / 100.0
     bmi = weight / (height_m ** 2)
-        str_ui.session_state["show_sports_program"] = True
+    str_ui.session_state["show_sports_program"] = True
     if bmi < 18.5:
         bmi_cat = tr("نحافة (Underweight)", "Underweight")
     elif bmi < 25:
