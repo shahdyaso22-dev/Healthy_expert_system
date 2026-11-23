@@ -385,10 +385,6 @@ if str_ui.button(button_label, use_container_width=True):
             """,
             unsafe_allow_html=True,
     )
-    
-                    unsafe_allow_html=True,
-                )
-                
 
 str_ui.markdown("---")
 str_ui.markdown("<p style='text-align: center; color: gray;'>" + tr("النظام الخبير الطبي والرياضي المعتمد • مشروع تخرج قسم الذكاء الاصطناعي", "Certified Clinical, Medical & Sports Expert System • AI Department Graduation Project") + "</p>", unsafe_allow_html=True)
