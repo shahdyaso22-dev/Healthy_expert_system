@@ -254,7 +254,8 @@ if str_ui.button(button_label, use_container_width=True):
                         tr("تجنب الإجهاد الزائد والشاشات لفترات طويلة.", "Avoid overexertion and prolonged screens."),
                     ],
                         tr("الإفراط في المسكنات أو السهر وقلة النوم.", "Overusing painkillers or staying up late/lack of sleep."),
-
+                )
+                
             elif "10." in selected_disease:
                 render_condition(
                     tr("10. ارتجاع المريء (GERD)", "10. GERD (Acid Reflux)"),
