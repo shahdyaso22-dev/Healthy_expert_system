@@ -67,82 +67,83 @@ weight = str_ui.sidebar.number_input(tr("الوزن (كجم)", "Weight (kg)"), 2
 height = str_ui.sidebar.number_input(tr("الطول (سم)", "Height (cm)"), 50.0, 250.0, 172.0)
 gender = str_ui.sidebar.selectbox(tr("الجنس", "Gender"), [tr("أنثى", "Female"), tr("ذكر", "Male")])
 activity_level = str_ui.sidebar.selectbox(
-    "مستوى النشاط البدني والحركة",
+    tr("مستوى النشاط البدني والحركة", "Physical Activity & Movement Level"),
     [
-        "خامل (بدون تمرين أو عمل مكتبي)",
-        "نشاط خفيف (تمرين 1-3 أيام في الأسبوع)",
-        "نشاط معتدل (تمرين 3-5 أيام في الأسبوع)",
-        "نشاط عالي جداً (تمارين شاقة 6-7 أيام)",
-        "حركة محدودة / كبير السن (مجهود بسيط)",
+        tr("خامل (بدون تمرين أو عمل مكتبي)", "Sedentary (no exercise or desk job)"),
+        tr("نشاط خفيف (تمرين 1-3 أيام في الأسبوع)", "Lightly active (exercise 1-3 days/week)"),
+        tr("نشاط معتدل (تمرين 3-5 أيام في الأسبوع)", "Moderately active (exercise 3-5 days/week)"),
+        tr("نشاط عالي جداً (تمارين شاقة 6-7 أيام)", "Very active (intense training 6-7 days/week)"),
+        tr("حركة محدودة / كبار السن (مجهود بسيط)", "Limited mobility / seniors (light effort)"),
     ],
 )
 
-str_ui.sidebar.markdown("---")
-str_ui.sidebar.subheader("🧭 اختر القسم الذي تريد العمل عليه")
+str_ui.sidebar.subheader(tr("اختر القسم الذي تريد العمل عليه", "Choose the section to work on"))
 section_mode = str_ui.sidebar.radio(
-    "وضع التشغيل:",
+    tr("القسم", "Section"),
     [
-        "القسم الطبي والأمراض",
-        "القسم الرياضي والغذائي",
+        tr("القسم الطبي والأمراض", "Medical & Diseases Section"),
+        tr("القسم الرياضي والغذائي", "Sports & Nutrition Section"),
     ],
 )
-
+selected_disease = str_ui.sidebar.selectbox(tr("اختر الداء أو العرض الرئيسي", "Select main condition or symptom"), disease_options)
 selected_disease = "لا يوجد أمراض أو أعراض (حالة سليمة)"
 fitness_goal = None
-
+if section_mode == tr("القسم الطبي والأمراض", "Medical & Diseases Section"):
 if section_mode == "القسم الطبي والأمراض":
-    str_ui.sidebar.markdown("---")
-    str_ui.sidebar.subheader("🏥 قسم الأمراض والحالات السريرية الشاملة")
-    disease_options = [
-        "لا يوجد أمراض أو أعراض (حالة سليمة)",
-        "1. مرض السكر (Diabetes)",
-        "2. ارتفاع ضغط الدم المزمن (Chronic Hypertension)",
-        "3. أمراض القلب والأوعية الدموية (Cardiovascular Diseases)",
-        "4. مشاكل الجهاز التنفسي (Respiratory Problems)",
-        "5. الحمى وارتفاع درجة الحرارة (Fever)",
-        "6. السعال والبرد والتهاب الحلق (Cough, Cold & Sore Throat)",
-        "7. حموضة المعدة (Vonacidan)",
-        "8. القولون العصبي (Replix)",
-        "9. الألم والصداع (Paracetamol)",
-        "10. ارتجاع المريء (GERD)",
-        "11. آلام الظهر (Back Pain)",
-        "12. آلام المفاصل والعضلات (Joint & Muscle Pain)",
+    str_ui.sidebar.subheader(tr("قسم الأمراض والحالات السريرية الشاملة", "Comprehensive Diseases & Clinical Cases")
+        disease_options = [
+        tr("لا يوجد أمراض أو أعراض (حالة سليمة)", "No diseases or symptoms (Healthy)"),
+        tr("1. مرض السكر (Diabetes)", "1. Diabetes"),
+        tr("2. ارتفاع ضغط الدم المزمن (Chronic Hypertension)", "2. Chronic Hypertension"),
+        tr("3. أمراض القلب والأوعية الدموية (Cardiovascular Diseases)", "3. Cardiovascular Diseases"),
+        tr("4. مشاكل الجهاز التنفسي (Respiratory Problems)", "4. Respiratory Problems"),
+        tr("5. الحمى وارتفاع درجة الحرارة (Fever)", "5. Fever"),
+        tr("6. السعال والبرد والتهاب الحلق (Cough, Cold & Sore Throat)", "6. Cough, Cold & Sore Throat"),
+        tr("7. حموضة المعدة (Acidity / Heartburn)", "7. Acidity / Heartburn"),
+        tr("8. القولون العصبي (IBS)", "8. Irritable Bowel Syndrome (IBS)"),
+        tr("9. الآلام والصداع (Pain & Headache)", "9. Pain & Headache"),
+        tr("10. ارتجاع المريء (GERD)", "10. GERD (Acid Reflux)"),
+        tr("11. آلام الظهر (Back Pain)", "11. Back Pain"),
+        tr("12. آلام المفاصل والعضلات (Joint & Muscle Pain)", "12. Joint & Muscle Pain"),
     ]
-    selected_disease = str_ui.sidebar.selectbox("اختر الحالة أو العرض الرئيسي:", disease_options)
-    button_label = "⚡ عرض التشخيص الطبي والروشتة"
+        selected_disease = str_ui.sidebar.selectbox(tr("اختر الداء أو العرض الرئيسي", "Select main condition or symptom"), disease_options)
+        button_label = tr("عرض التشخيص الطبي والروشتة ⚡", "Show Medical Diagnosis & Prescription ⚡")
 else:
     str_ui.sidebar.markdown("---")
-    str_ui.sidebar.subheader("🏋️‍♂️ قسم الرياضة والتغذية المخصصة")
-    fitness_goal = str_ui.sidebar.radio(
-        "اختر هدفك الرياضي والغذائي:",
+    str_ui.sidebar.subheader(tr("قسم الرياضة والتغذية المعتمدة", "Approved Sports & Nutrition Section"))
+        fitness_goal = str_ui.sidebar.radio(
+        tr("اختر هدفك الرياضي والغذائي", "Choose your sports & nutrition goal"),
         [
-            "زيادة وزن وبناء عضلات",
-            "تقليل وزن وتنشيف",
+            tr("زيادة وزن وبناء عضلات", "Weight Gain & Muscle Building"),
+            tr("تقليل وزن وتنشيف", "Weight Loss & Cutting"),
         ],
-    )
-    button_label = "⚡ تشغيل النظام الرياضي والغذائي"
+        )
+        button_label = tr("تفعيل النظام الرياضي والغذائي 🏋️‍♂️", "Activate Sports & Nutrition System 🏋️‍♂️")
 
 if str_ui.button(button_label, use_container_width=True):
     height_m = height / 100.0
     bmi = weight / (height_m ** 2)
 
-    if bmi < 18.5:
-        bmi_cat = "نحافة (Underweight)"
-    elif bmi < 25:
-        bmi_cat = "وزن مثالي (Normal)"
-    elif bmi < 30:
-        bmi_cat = "زيادة وزن (Overweight)"
-    else:
-        bmi_cat = "سمنة (Obese)"
+            if bmi < 18.5:
+            bmi_cat = tr("نحافة (Underweight)", "Underweight")
+        elif bmi < 25:
+            bmi_cat = tr("وزن مثالي (Normal)", "Normal Weight")
+        elif bmi < 30:
+            bmi_cat = tr("زيادة وزن (Overweight)", "Overweight")
+        else:
+            bmi_cat = tr("سمنة (Obese)", "Obese")
 
-    if section_mode == "القسم الطبي والأمراض":
-        confidence = 98.2 if "لا يوجد" in selected_disease else 96.5
-        str_ui.markdown("## 🧠 التقرير التشخيصي وتحليل الذكاء الاصطناعي")
-        c1, c2, c3 = str_ui.columns(3)
-        c1.metric("البيانات الحيوية", f"{age} سنة | {gender}")
-        c2.metric("مؤشر كتلة الجسم (BMI)", f"{bmi:.1f}", bmi_cat)
-        c3.metric("دقة الذكاء الاصطناعي", f"{confidence}%")
-        str_ui.info(f"**مستوى النشاط:** {activity_level}  |  **الحالة المختارة:** {selected_disease}")
+            if section_mode == tr("القسم الطبي والأمراض", "Medical & Diseases Section"):
+            confidence = 98.2 if ("لا يوجد" in selected_disease or "No diseases" in selected_disease) else 96.5
+            str_ui.markdown("### " + tr("التقرير التشخيصي وتحليل الذكاء الاصطناعي", "Diagnostic Report & AI Analysis"))
+            c1, c2, c3 = str_ui.columns(3)
+            c1.metric(tr("البيانات الفردية", "Individual Profile"), f"{age} " + tr("سنة", "yrs") + f" | {gender}")
+            c2.metric(tr("مؤشر كتلة الجسم (BMI)", "Body Mass Index (BMI)"), f"{bmi:.1f}", bmi_cat)
+            c3.metric(tr("دقة الذكاء الاصطناعي", "AI Confidence"), f"{confidence}%")
+            str_ui.info(f"**" + tr("الحالة المختارة:", "Selected Condition:") + f"** {selected_disease} | **" + tr("مستوى النشاط:", "Activity Level:") + f"** {activity_level}")
+
+            if ("لا يوجد" not in selected_disease) and ("No diseases" not in selected_disease):
+                str_ui.markdown("### " + tr("الإرشادات الطبية والصرف الدوائي المتوازن", "Medical Guidance & Balanced Medication"))
 
         if "لا يوجد أمراض" not in selected_disease:
             str_ui.markdown("## 📋 الإرشادات الطبية والتصرف المبدئي للطوارئ")
