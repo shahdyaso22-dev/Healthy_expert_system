@@ -296,13 +296,13 @@ if str_ui.button(button_label, use_container_width=True):
                     tr("حسب إرشادات الطبيب المختص.", "As directed by the specialist physician."),
                 )
         else:
-        str_ui.info(tr("لا يوجد أمراض مسجلة حالياً — الحالة الصحية مستقرة.", "No diseases recorded currently — health status is stable."))
-        str_ui.markdown("## " + tr("🏋️‍♂️ البرنامج الرياضي والنظام الغذائي", "🏋️‍♂️ Sports & Nutrition Program"))
-        c1, c2, c3 = str_ui.columns(3)
-        c1.metric(tr("البيانات البدنية", "Physical Profile"), f"{age} " + tr("سنة", "yrs") + f" | {gender}")
-        c2.metric(tr("مؤشر كتلة الجسم (BMI)", "Body Mass Index (BMI)"), f"{bmi:.1f}", bmi_cat)
-        c3.metric(tr("الهدف المختار", "Selected Goal"), fitness_goal)
-        str_ui.info("**" + tr("مستوى النشاط البدني:", "Physical Activity Level:") + f"** {activity_level}")
+            str_ui.info(tr("لا يوجد أمراض مسجلة حالياً — الحالة الصحية مستقرة.", "No diseases recorded currently — health status is stable."))
+            str_ui.markdown("## " + tr("🏋️‍♂️ البرنامج الرياضي والنظام الغذائي", "🏋️‍♂️ Sports & Nutrition Program"))
+            c1, c2, c3 = str_ui.columns(3)
+            c1.metric(tr("البيانات البدنية", "Physical Profile"), f"{age} " + tr("سنة", "yrs") + f" | {gender}")
+            c2.metric(tr("مؤشر كتلة الجسم (BMI)", "Body Mass Index (BMI)"), f"{bmi:.1f}", bmi_cat)
+            c3.metric(tr("الهدف المختار", "Selected Goal"), fitness_goal)
+            str_ui.info("**" + tr("مستوى النشاط البدني:", "Physical Activity Level:") + f"** {activity_level}")
 
         if "زيادة وزن" in fitness_goal or "Weight Gain" in fitness_goal:
             str_ui.markdown(
