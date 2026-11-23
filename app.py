@@ -253,4 +253,5 @@ if str_ui.button(button_label, use_container_width=True):
                         tr("الراحة في مكان هادئ وشرب الماء بانتظام.", "Rest in a quiet place and drink water regularly."),
                         tr("تجنب الإجهاد الزائد والشاشات لفترات طويلة.", "Avoid overexertion and prolonged screens."),
                     ],
-                    tr("الإفراط في المسكنات أو السهر وقلة النوم.", "Overusing painkillers or staying up 
+                                        tr("الإفراط في المسكنات أو السهر وقلة النوم.", "Overusing painkillers or staying up late/lack of sleep."),
+
