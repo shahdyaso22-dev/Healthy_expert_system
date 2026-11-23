@@ -12,10 +12,16 @@ css_code = (
     "[data-testid='stSidebar'] { background: linear-gradient(180deg, #0b1120 0%, #020617 100%); border-right: 1px solid rgba(56, 189, 248, 0.25); }"
     "h1 { background: linear-gradient(90deg, #38bdf8, #818cf8, #2dd4bf); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800 !important; }"
     "h2, h3 { color: #38bdf8 !important; font-weight: 700 !important; }"
-    ".stButton > button { background: linear-gradient(90deg, #0284c7 0%, #2563eb 50%, #0ea5e9 100%) !important; color: white !important; font-weight: bold !important; font-size: 18px !important; border: none !important; border-radius: 12px !important; padding: 14px 24px !important; box-shadow: 0 0 20px rgba(14, 165, 233, 0.5) !important; }"
-    "[data-testid='stTable'] { background: rgba(15, 23, 42, 0.92) !important; border-radius: 14px !important; box-shadow: 0 10px 28px rgba(2, 132, 199, 0.35), 0 0 18px rgba(45, 212, 191, 0.16) !important; border: 1px solid rgba(56, 189, 248, 0.45) !important; }"
-    "[data-testid='stTable'] th { background: rgba(2, 132, 199, 0.5) !important; color: #e0f2fe !important; text-align: right !important; }"
-    "[data-testid='stTable'] td { color: #f1f5f9 !important; text-align: right !important; border-bottom: 1px solid rgba(56, 189, 248, 0.16) !important; }"
+    ".stButton > button { background: linear-gradient(90deg, #0284c7 0%, #2563eb 50%, #0ea5e9 100%) !important; color: white !important; font-weight: bold !important; font-size: 18px !important; border: none !important; border-radius: 12px !important; padding: 14px 24px !important; box-shadow: 0 0 22px rgba(14, 165, 233, 0.55) !important; }"
+    ".diet-banner { background: linear-gradient(135deg, rgba(14, 116, 144, 0.45), rgba(30, 58, 138, 0.45)); border: 1px solid rgba(56, 189, 248, 0.6); box-shadow: 0 10px 32px rgba(14, 165, 233, 0.35), 0 0 18px rgba(45, 212, 191, 0.2); border-radius: 18px; padding: 20px; margin-bottom: 20px; }"
+    ".glow-table-wrap { background: rgba(15, 23, 42, 0.92); border: 1px solid rgba(56, 189, 248, 0.55); box-shadow: 0 12px 35px rgba(2, 132, 199, 0.38), 0 0 22px rgba(45, 212, 191, 0.18); border-radius: 18px; padding: 14px; margin-bottom: 22px; overflow-x: auto; }"
+    ".custom-tbl { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; }"
+    ".custom-tbl th { background: linear-gradient(90deg, rgba(2, 132, 199, 0.65), rgba(13, 148, 136, 0.55)); color: #f0f9ff; font-weight: 700; padding: 13px 14px; border-bottom: 2px solid #38bdf8; text-align: right; font-size: 15px; }"
+    ".custom-tbl td { padding: 12px 14px; border-bottom: 1px solid rgba(56, 189, 248, 0.18); color: #f1f5f9; text-align: right; font-size: 14px; line-height: 1.65; vertical-align: top; }"
+    ".custom-tbl tr:last-child td { border-bottom: none; }"
+    ".custom-tbl tr:hover td { background: rgba(56, 189, 248, 0.1); }"
+    ".pill-tag { display: inline-block; background: rgba(45, 212, 191, 0.16); border: 1px solid rgba(45, 212, 191, 0.45); color: #5eead4; border-radius: 8px; padding: 2px 8px; font-size: 12px; font-weight: 700; margin-bottom: 4px; }"
+    ".tip-box { background: rgba(15, 23, 42, 0.88); border: 1px solid rgba(56, 189, 248, 0.4); box-shadow: 0 6px 22px rgba(14, 165, 233, 0.22); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }"
     "</style>"
 )
 str_ui.markdown(css_code, unsafe_allow_html=True)
@@ -34,8 +40,23 @@ def render_condition(title, initial_steps, avoid_text=None, emergency_text=None,
         str_ui.success("**💊 الروشتة الطبية المعتمدة — الدواء الموصوف:** " + med_text)
 
 
+def build_html_table(headers, rows):
+    th_html = "".join(["<th>" + h + "</th>" for h in headers])
+    tr_list = []
+    for r in rows:
+        tds = "".join(["<td>" + cell + "</td>" for cell in r])
+        tr_list.append("<tr>" + tds + "</tr>")
+    return (
+        "<div class='glow-table-wrap'>"
+        "<table class='custom-tbl'>"
+        "<thead><tr>" + th_html + "</tr></thead>"
+        "<tbody>" + "".join(tr_list) + "</tbody>"
+        "</table></div>"
+    )
+
+
 str_ui.title("🩺 النظام الخبير الطبي والرياضي الذكي بالذكاء الاصطناعي")
-str_ui.markdown("<p style='color: #94a3b8; font-size: 18px;'>محرك التشخيص السريري المتقدم، إرشادات الطوارئ الطبية، وبرامج التغذية واللياقة البدنية</p>", unsafe_allow_html=True)
+str_ui.markdown("<p style='color: #94a3b8; font-size: 18px;'>تشخيص طبي منفصل وإرشادات طوارئ + برامج رياضية وجداول غذائية متكاملة</p>", unsafe_allow_html=True)
 str_ui.markdown("---")
 
 str_ui.sidebar.header("👤 الملف الشخصي للمريض والرياضي")
@@ -90,15 +111,14 @@ if section_mode == "القسم الطبي والأمراض":
 else:
     str_ui.sidebar.markdown("---")
     str_ui.sidebar.subheader("🏋️‍♂️ قسم الرياضة والتغذية المخصصة")
-    fitness_goal = str_ui.sidebar.selectbox(
-        "اختر هدفك الرياضي",
+    fitness_goal = str_ui.sidebar.radio(
+        "اختر هدفك الرياضي والغذائي:",
         [
-            "زيادة وزن وبناء عضلات (Bulking)",
-            "تخسيس وتنشيف (Cutting)",
-            "لياقة عامة والحفاظ على الوزن",
+            "زيادة وزن وبناء عضلات",
+            "تقليل وزن وتنشيف",
         ],
     )
-    button_label = "⚡ تشغيل النظام الذكي وإصدار التقرير الشامل"
+    button_label = "⚡ تشغيل النظام الرياضي والغذائي"
 
 if str_ui.button(button_label, use_container_width=True):
     height_m = height / 100.0
@@ -282,68 +302,55 @@ if str_ui.button(button_label, use_container_width=True):
             str_ui.info("لا يوجد أمراض مسجلة حالياً — الحالة الصحية مستقرة.")
 
     else:
-        str_ui.markdown("## 🏋️‍♂️ البرنامج الرياضي والنظام الغذائي المخصص")
+        str_ui.markdown("## 🏋️‍♂️ البرنامج الرياضي والنظام الغذائي")
         c1, c2, c3 = str_ui.columns(3)
         c1.metric("البيانات البدنية", f"{age} سنة | {gender}")
         c2.metric("مؤشر كتلة الجسم (BMI)", f"{bmi:.1f}", bmi_cat)
-        c3.metric("الهدف الرياضي", fitness_goal)
+        c3.metric("الهدف المختار", fitness_goal)
         str_ui.info(f"**مستوى النشاط البدني:** {activity_level}")
 
-        if "زيادة وزن" in fitness_goal:
-            str_ui.markdown("### 💪 الرياضة والتمارين المطلوبة (زيادة الوزن وبناء العضلات)")
-            sports_rows = [
-                {"اليوم": "اليوم 1", "الرياضة / التمارين": "تمارين مقاومة دفع (صدر، كتف أمامي وجانبي، ترايسبس)", "المدة": "60 دقيقة (8-10 عدات)"},
-                {"اليوم": "اليوم 2", "الرياضة / التمارين": "تمارين مقاومة سحب (ظهر، بايسبس، كتف خلفي)", "المدة": "60 دقيقة (8-10 عدات)"},
-                {"اليوم": "اليوم 3", "الرياضة / التمارين": "راحة واستشفاء عضلي", "المدة": "راحة تامة"},
-                {"اليوم": "اليوم 4", "الرياضة / التمارين": "تمارين أرجل كاملة (سكوات، طعنات، خلفية وسمانة)", "المدة": "60 دقيقة"},
-                {"اليوم": "اليوم 5", "الرياضة / التمارين": "تمارين جزء علوي وتقوية الجذع (Upper Body & Core)", "المدة": "50 دقيقة"},
-                {"اليوم": "اليوم 6 و 7", "الرياضة / التمارين": "راحة ونوم كافٍ لتعافي العضلات", "المدة": "راحة (4-5 أيام تمرين أسبوعياً)"},
-            ]
-            str_ui.table(sports_rows)
+        if fitness_goal == "زيادة وزن وبناء عضلات":
+            str_ui.markdown(
+                "<div class='diet-banner'>"
+                "<span class='pill-tag'>فائض سعرات صحي ومتوازن</span>"
+                "<h3 style='margin: 4px 0; color: #7dd3fc !important;'>📈 جدول النظام الغذائي لزيادة الوزن وبناء العضلات</h3>"
+                "<p style='margin: 0; color: #cbd5e1;'>خطة يومية متكاملة من 6 وجبات بمواعيد محددة لزيادة الكتلة العضلية والوزن الصحي بأمان.</p>"
+                "</div>",
+                unsafe_allow_html=True,
+            )
 
-            str_ui.markdown("### 🥗 جدول الأكل المخصص لزيادة الوزن (Bulking)")
-            diet_rows = [
-                {"الوجبة": "🍳 الإفطار", "الخيار الأول": "3 بيضات مقلية بالزبدة + 2 توست أسمر أو عيش بلدي", "الخيار الثاني": "شوفان بالحليب كامل الدسم + موزة + ملعقة عسل", "ملاحظة": "سعرات عالية وطاقة"},
-                {"الوجبة": "🥜 سناك", "الخيار الأول": "مكسرات مشكلة + تمر أو فواكه مجففة", "الخيار الثاني": "حليب كامل الدسم + زبدة فول سوداني", "ملاحظة": "دعم السعرات اليومية"},
-                {"الوجبة": "🍗 الغداء", "الخيار الأول": "أرز + 200 جم لحم أو دجاج + خضار", "الخيار الثاني": "مكرونة بصوص + صدور دجاج", "ملاحظة": "بروتين وكربوهيدرات للضخامة"},
-                {"الوجبة": "🥗 العشاء", "الخيار الأول": "فول مدمس بزيت الزيتون + بيضة مسلوقة", "الخيار الثاني": "150 جم جبنة قريش + خبز + لبن", "ملاحظة": "وجبة مسائية مغذية"},
+            gain_meals = [
+                [
+                    "<strong>الإفطار</strong><br><span style='color:#38bdf8;'>⏰ 8:00 - 9:00 صباحاً</span>",
+                    "• 3 بيضات مقلية بالزبدة أو زيت الزيتون<br>• رغيف خبز بلدي أو شريحتين خبز توست بر<br>• كوب حليب كامل الدسم مع تمرات<br>• ملعقة كبيرة زبدة فول سوداني",
+                    "<span class='pill-tag'>الدهون الصحية والبروتين</span><br>طاقة قوية في بداية اليوم مع بروتين ودهون صحية لدعم بناء العضلات.",
+                ],
+                [
+                    "<strong>وجبة خفيفة (سناك 1)</strong><br><span style='color:#38bdf8;'>⏰ 11:30 صباحاً</span>",
+                    "• طبق سلطة فواكه مجففة ومكسرات (عين جمل، لوز، زبيب)<br>• كوب عصير مانجو أو موز بالحليب كامل الدسم مع العسل",
+                    "<span class='pill-tag'>سعرات مركزة</span><br>سهلة الهضم وغنية بالدهون الصحية والطاقة لرفع السعرات اليومية.",
+                ],
+                [
+                    "<strong>الغداء (الوجبة الرئيسية)</strong><br><span style='color:#38bdf8;'>⏰ 2:30 - 3:30 ظهراً</span>",
+                    "• طبق كبير أرز مصري أو مكرونة (مطهو بالسمن أو الزبدة)<br>• صدرين دجاج أو قطعة لحم ضأن/بقري متوسطة الحجم<br>• طبق خضار مطهو مع مرقة ودسم صحي<br>• سلطة خضراء مع زيت الزيتون",
+                    "<span class='pill-tag'>وجبة أساسية متكاملة</span><br>غنية بالبروتين والكربوهيدرات المعقدة لبناء الكتلة العضلية والوزن.",
+                ],
+                [
+                    "<strong>وجبة خفيفة (سناك 2)</strong><br><span style='color:#38bdf8;'>⏰ 5:30 مساءً (قبل التمرين)</span>",
+                    "• ساندويتش زبدة الفول السوداني والموز مع العسل<br>• أو حبة فاكهة مع حفنة مكسرات",
+                    "<span class='pill-tag'>طاقة قبل التمرين</span><br>تمدك بطاقة عالية جداً قبل بذل أي مجهود أو لعب الرياضة.",
+                ],
+                [
+                    "<strong>العشاء</strong><br><span style='color:#38bdf8;'>⏰ 8:30 - 9:30 مساءً</span>",
+                    "• طبق فول بزيت الزيتون والطحينة الخفيفة<br>• جبنة كاملة الدسم (قريش مع قشطة أو جبنة بيضاء دسمة)<br>• رغيف خبز بلدي",
+                    "<span class='pill-tag'>بروتين بطيء الهضم</span><br>يغذي الجسم طوال الليل مع دهون الطحينة وزيت الزيتون.",
+                ],
+                [
+                    "<strong>قبل النوم</strong><br><span style='color:#38bdf8;'>⏰ قبل النوم مباشرة</span>",
+                    "• كوب حليب دافئ كامل الدسم مع ملعقة عسل ومكسرات مطحونة",
+                    "<span class='pill-tag'>استشفاء وزيادة سعرات</span><br>يساعد على الاسترخاء ويزيد السعرات الحرارية في آخر اليوم.",
+                ],
             ]
-            str_ui.table(diet_rows)
+            str_ui.markdown(build_html_table(["الوجبة والوقت", "مكونات الوجبة المقترحة", "القيمة والفوائد الغذائية"], gain_meals), unsafe_allow_html=True)
 
-        elif "تخسيس" in fitness_goal:
-            str_ui.markdown("### 🔥 الرياضة والتمارين المطلوبة (تخسيس وتنشيف)")
-            sports_rows = [
-                {"اليوم": "اليوم 1 و 4", "الرياضة / التمارين": "مشي سريع أو جري خفيف (Cardio) + تمارين بطن", "المدة": "45 دقيقة"},
-                {"اليوم": "اليوم 2 و 5", "الرياضة / التمارين": "تمارين مقاومة شاملة للجسم (Full Body Circuit)", "المدة": "45 دقيقة"},
-                {"اليوم": "اليوم 3", "الرياضة / التمارين": "نط الحبل أو عجلة رياضية ثابتة (HIIT)", "المدة": "30 دقيقة"},
-                {"اليوم": "اليوم 6 و 7", "الرياضة / التمارين": "استشفاء وحركة خفيفة", "المدة": "راحة (4-5 أيام تمرين أسبوعياً)"},
-            ]
-            str_ui.table(sports_rows)
-
-            str_ui.markdown("### 🥗 جدول الأكل المخصص للتخسيس والتنشيف (Cutting)")
-            diet_rows = [
-                {"الوجبة": "🍳 الإفطار", "الخيار الأول": "3 بيضات مسلوقة + خيار وخضروات ورقية", "الخيار الثاني": "شوفان بالماء أو حليب خالي الدسم + قرفة", "ملاحظة": "بروتين عالي وشبع أطول"},
-                {"الوجبة": "🍗 الغداء", "الخيار الأول": "150 جم صدور دجاج مشوية + سلطة خضراء", "الخيار الثاني": "سمك مشوي + خضار سوتيه", "ملاحظة": "سعرات منخفضة وبروتين صافي"},
-                {"الوجبة": "🥗 العشاء", "الخيار الأول": "150 جم جبنة قريش + طماطم وخيار", "الخيار الثاني": "تونة مصفاة من الزيت + سلطة", "ملاحظة": "خفيف ومناسب لليل"},
-            ]
-            str_ui.table(diet_rows)
-
-        else:
-            str_ui.markdown("### ⚡ الرياضة والتمارين المطلوبة (لياقة عامة والحفاظ على الوزن)")
-            sports_rows = [
-                {"الأيام": "3 أيام أسبوعياً", "الرياضة / التمارين": "مشي سريع أو سباحة أو جري خفيف + تمارين إطالة", "المدة": "30 إلى 40 دقيقة"},
-                {"الأيام": "باقي الأيام", "الرياضة / التمارين": "حركة يومية طبيعية ونشاط معتدل", "المدة": "حسب القدرة والراحة"},
-            ]
-            str_ui.table(sports_rows)
-
-            str_ui.markdown("### 🥗 جدول الأكل المخصص للياقة العامة والحفاظ على الوزن")
-            diet_rows = [
-                {"الوجبة": "🍳 الإفطار", "الخيار الأول": "بيضتان + قطعة جبن + خضروات", "الخيار الثاني": "شوفان مع حليب ونصف ثمرة فاكهة", "ملاحظة": "توازن غذائي يومي"},
-                {"الوجبة": "🍗 الغداء", "الخيار الأول": "150 جم بروتين + أرز أو مكرونة باعتدال + سلطة", "الخيار الثاني": "وجبة منزلية متوازنة مع خضار", "ملاحظة": "الحفاظ على ثبات الوزن"},
-                {"الوجبة": "🥗 العشاء", "الخيار الأول": "زبادي أو جبنة قريش + خيار", "الخيار الثاني": "شوربة خضار خفيفة", "ملاحظة": "خفيف قبل النوم"},
-            ]
-            str_ui.table(diet_rows)
-
-str_ui.markdown("---")
-str_ui.markdown("<p style='text-align: center; color: gray;'>النظام الخبير الطبي والرياضي المعتمد • مشروع تخرج قسم الذكاء الاصطناعي</p>", unsafe_allow_html=True)
-                    
+            str_ui.markdown("### 💪 الرياضة والتمارين المطلوبة (زيادة الوز
