@@ -349,7 +349,7 @@ if str_ui.button(button_label, use_container_width=True):
                     """,
                     unsafe_allow_html=True,
                 )
-                    if fitness_goal and ("زيادة وزن" in str(fitness_goal) or "Weight Gain" in str(fitness_goal)):
+                            if fitness_goal and ("زيادة وزن" in str(fitness_goal) or "Weight Gain" in str(fitness_goal)):
                 str_ui.markdown(
                     """
                     <div class='diet-banner'>
@@ -391,7 +391,7 @@ if str_ui.button(button_label, use_container_width=True):
                     """,
                     unsafe_allow_html=True,
                 )
-                    else:
+            else:
                 str_ui.markdown(
                     """
                     <div class='diet-banner'>
