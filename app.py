@@ -304,7 +304,7 @@ if str_ui.button(button_label, use_container_width=True):
             c3.metric(tr("الهدف المختار", "Selected Goal"), fitness_goal)
             str_ui.info("**" + tr("مستوى النشاط البدني:", "Physical Activity Level:") + f"** {activity_level}")
 
-        if "زيادة وزن" in fitness_goal or "Weight Gain" in fitness_goal:
+        if fitness_goal and ("زيادة وزن" in fitness_goal or "Weight Gain" in fitness_goal):
             str_ui.markdown(
                 "<div class='diet-banner'>"
                 "<span class='pill-tag'>" + tr("فائض سعرات صحي ومتوازن", "Healthy Balanced Calorie Surplus") + "</span>"
