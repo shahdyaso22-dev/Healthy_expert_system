@@ -366,17 +366,13 @@ if str_ui.button(button_label, use_container_width=True):
             str_ui.markdown(build_html_table(["اليوم", "الرياضة والألعاب المطلوبة", "المدة وعدد الأيام"], gain_sports), unsafe_allow_html=True)
 
             str_ui.markdown("### 💡 نصائح ذهبية لنجاح نظام زيادة الوزن")
-            str_ui.markdown(build_html_table(["الوجبة والوقت", "مكونات الوجبة المقترحة", "القيمة والفوائد الغذائية"], gain_meals), unsafe_allow_html=True)
-            
-                                "<div class='tip-box'><strong>1. زيادة السعرات التدريجية:</strong> حاول أن تأكل كميات أكبر قليلاً مما اعتدت عليه بالتدريج لكي لا تشعر بتخمة مفاجئة.</div>"
-
+            str_ui.markdown(
+                "<div class='tip-box'><strong>1. زيادة السعرات التدريجية:</strong> حاول أن تأكل كميات أكبر قليلاً مما اعتدت عليه بالتدريج لكي لا تشعر بتخمة مفاجئة.</div>"
                 "<div class='tip-box'><strong>2. الدهون الصحية في كل وجبة:</strong> ركّز على زيت الزيتون، الأفوكادو، المكسرات، زبدة الفول السوداني، والطحينة.</div>"
                 "<div class='tip-box'><strong>3. الاستمرارية والراحة:</strong> التزم بالوجبات والتمارين مع النوم الكافي لأن العضلات تبني وتنمو وقت الراحة.</div>",
                 unsafe_allow_html=True,
-                     str_ui.markdown(build_html_table(["الوجبة والوقت", "مكونات الوجبة المقترحة", "القيمة والفوائد الغذائية"], gain_meals), unsafe_allow_html=True)
-            str_ui.markdown("### 💪 الرياضة والتمارين المطلوبة (زيادة الوزن وبناء العضلات)")
-                
-
+            )
+            
             
             
             
