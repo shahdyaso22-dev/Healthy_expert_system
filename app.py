@@ -981,9 +981,6 @@ else:
         )
 
 st.divider()
-st.markdown(
-    f"<p class='footer-note'>{tr('النظام الخبير الطبي والرياضي المعتمد • مشروع تخرج قسم الذكاء الاصطناعي', 'Approved Clinical & Sports Expert System • Artificial Intelligence Graduation Project')}</p>",
-    unsafe_allow_html=True,
-    )
+
     
       
