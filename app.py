@@ -31,12 +31,30 @@ st.markdown(
         .stApp {{
             background: radial-gradient(circle at top right, #0f172a, #020617 70%);
             color: #f8fafc;
+            overflow-x: hidden;
+        }}
+        .main .block-container {{
             direction: {"rtl" if is_ar else "ltr"};
             text-align: {"right" if is_ar else "left"};
+            max-width: 100%;
+            overflow-x: hidden;
         }}
         [data-testid="stSidebar"] {{
             background: linear-gradient(180deg, #0b1120 0%, #020617 100%);
-            border-{"left" if is_ar else "right"}: 1px solid rgba(56, 189, 248, 0.25);
+            direction: {"rtl" if is_ar else "ltr"};
+            text-align: {"right" if is_ar else "left"};
+            overflow-x: hidden;
+        }}
+        [data-testid="stSidebar"] * {{
+            word-break: normal !important;
+            overflow-wrap: break-word !important;
+            max-width: 100%;
+        }}
+        @media (max-width: 768px) {{
+            [data-testid="stSidebar"][aria-expanded="true"] {{
+                width: 75vw !important;
+                min-width: 75vw !important;
+                max-width: 75vw !important;
         }}
         h1, h2, h3 {{
             background: linear-gradient(90deg, #38bdf8, #818cf8, #2dd4bf);
