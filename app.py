@@ -621,22 +621,28 @@ if is_medical_section:
                 "No diseases or symptoms recorded currently — health status is stable.",
             )
         )
-    else:
-         matched = next(
-        (
-            d for d in DISEASES_DATA
-            if d["label"] == selected_disease
-            or d["key"] in str(selected_disease)
-        ),
-        None,
-          )
-    if matched:
+        else:
+        matched = next(
+            (
+                d for d in DISEASES_DATA
+                if d["label"] == selected_disease
+                or d["key"] in str(selected_disease)
+            ),
+            None,
+        )
+        if not matched and selected_disease:
+            for idx, d in enumerate(DISEASES_DATA, start=1):
+                if str(selected_disease).strip().startswith(f"{idx}.") or str(selected_disease).strip().startswith(f"{idx} "):
+                    matched = d
+                    break
+        if matched:
             st.markdown(f"### {matched['label']}")
             st.markdown(
-                f"**{tr('📋 التصرف المبدئي والإرشادات:', '📋 Initial Actions & Guidance:')}**"
+                f"**{tr('🩺 التصرف المبدئي والإرشادات:', '🩺 Initial Actions & Guidance:')}**"
             )
             for item in matched["steps"]:
                 st.markdown(f"- {item}")
+    
 
             if matched["avoid"]:
                 st.warning(
