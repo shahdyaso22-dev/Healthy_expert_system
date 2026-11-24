@@ -629,8 +629,8 @@ if is_medical_section:
                 or str(d["key"]).strip() in str(selected_disease)
             ),
             None,
-        )
-        if not matched and selected_disease:
+        ) 
+   if not matched and selected_disease:
             for idx, d in enumerate(DISEASES_DATA, start=1):
                 s = str(selected_disease).strip()
                 if s.startswith(f"{idx}.") or s.startswith(f"{idx} "):
