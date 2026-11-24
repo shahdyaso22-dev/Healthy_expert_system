@@ -621,7 +621,7 @@ if is_medical_section:
                 "No diseases or symptoms recorded currently — health status is stable.",
             )
         )
-   else:
+    else:
         matched = next(
             (
                 d for d in DISEASES_DATA
