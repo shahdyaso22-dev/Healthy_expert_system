@@ -622,29 +622,14 @@ if is_medical_section:
             )
         )
     else:
-      matched = next(
-        (d for d in DISEASES_DATA if d["key"] in selected_disease or d["label"] == selected_disease),
-        None,
-    )
-```[span_0](start_span)[span_0](end_span)
-
-### ليه رقم 11 و12 عملوا كده؟
-* في الحالة 11 و12، الـ `key` هو `"11."` و `"12."`[span_1](start_span)[span_1](end_span)، والـ `label` بيكون فيه `"11. ..."` و `"12. ..."`[span_2](start_span)[span_2](end_span).
-* لو غيرتي اللغة (`العربية` / `English`) أو عدلتي حاجة والـ `selectbox` حافظ على اختيار قديم أو لو في أي مساحة/حرف مختلف، أحياناً بيحصل إن `matched` يطلع `None` (فمبيظهرش أوت بوت الحالة 11 أو 12)، ولو رجع لأول قائمة أو أول عنصر بيظهر السكر.
-* والأهم: في **السطور 625–627** لو استبدلنا الشرط بمقارنة أوضح وأضمن (تطابق الـ `label` مباشرة أو وجود الـ `key` أو رقم الحالة)، مفيش أي احتمال إنه يغلط في رقم 11 أو 12.
-
-### التعديل الجاهز للسطور 625–627:
-بدّلي **السطور 625–627** بالجزء ده[span_3](start_span)[span_3](end_span):
-
-```python
-    matched = next(
+         matched = next(
         (
             d for d in DISEASES_DATA
             if d["label"] == selected_disease
             or d["key"] in str(selected_disease)
         ),
         None,
-        )
+          )
         if matched:
             st.markdown(f"### {matched['label']}")
             st.markdown(
