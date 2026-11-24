@@ -614,13 +614,13 @@ if is_medical_section:
         f"**{tr('مستوى النشاط البدني:', 'Physical Activity Level:')}** {activity_level}"
     )
 
-    if is_healthy:
+        if is_healthy:
         st.success(
             tr(
-                "لا توجد أمراض أو أعراض مسجلة حالياً — الحالة الصحية مستقرة.",
-                "No diseases or symptoms recorded currently — health status is stable.",
+                "✅ لا توجد أمراض أو أعراض مسجلة حالياً — الحالة الصحية مستقرة.",
+                "✅ No diseases or symptoms recorded currently — health status is stable.",
             )
-    
+
     else:
         matched = next(
             (
