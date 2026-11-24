@@ -620,9 +620,24 @@ if is_medical_section:
                 "لا توجد أمراض أو أعراض مسجلة حالياً — الحالة الصحية مستقرة.",
                 "No diseases or symptoms recorded currently — health status is stable.",
             )
-        )
+    
     else:
-                matched = next(
+        matched = next(
+            (
+                d for d in DISEASES_DATA
+                if str(d["label"]).strip() == str(selected_disease).strip()
+                or str(d["key"]).strip() in str(selected_disease)
+            ),
+            None,
+        )
+        if not matched and selected_disease:
+            for idx, d in enumerate(DISEASES_DATA, start=1):
+                s = str(selected_disease).strip()
+                if s.startswith(f"{idx}.") or s.startswith(f"{idx} "):
+                    matched = d
+                    break
+        if matched:
+              matched = next(
             (
                 d for d in DISEASES_DATA
                 if str(d["label"]).strip() == str(selected_disease).strip()
