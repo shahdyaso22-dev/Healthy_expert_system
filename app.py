@@ -56,6 +56,20 @@ st.markdown(
                 min-width: 75vw !important;
                 max-width: 75vw !important;
         }}
+        @media (max-width: 768px) {{
+            .main .block-container {{
+                padding-left: 0.75rem !important;
+                padding-right: 0.75rem !important;
+            }}
+            table.custom-tbl {{
+                min-width: 100% !important;
+                width: 100% !important;
+                font-size: 13px !important;
+            }}
+            table.custom-tbl th,
+            table.custom-tbl td {{
+                padding: 9px 8px !important;
+            }}
         h1, h2, h3 {{
             background: linear-gradient(90deg, #38bdf8, #818cf8, #2dd4bf);
             -webkit-background-clip: text;
