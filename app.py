@@ -615,7 +615,7 @@ if is_medical_section:
     )
 
     if is_healthy:
-             st.success(
+           st.success(
                tr(
                 "✅ لا توجد أمراض أو أعراض مسجلة حالياً — الحالة الصحية مستقرة.",
                 "✅ No diseases or symptoms recorded currently — health status is stable.",
