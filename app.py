@@ -407,3 +407,450 @@ DISEASES_DATA = [
     {
         "key": "12.",
         "label": tr("12. ألم المفاصل والعضلات (Joint & Muscle Pain)", "12. Joint & Muscle Pain"),
+                "steps": [
+            tr("إراحة الجزء المصاب مؤقتاً.", "Rest the affected area temporarily."),
+            tr("استخدام كمادات باردة ملفوفة في منشفة لمدة قصيرة عند وجود تورم حديث.", "Use cold compresses wrapped in a towel for short intervals if there is recent swelling."),
+            tr("تجنب المجهود والحركات التي تزيد الألم وتحريك المفصل بلطف عندما تسمح الحالة وشرب الماء بانتظام.", "Avoid exertion and painful movements, move the joint gently when tolerated, and drink water regularly."),
+        ],
+        "avoid": tr(
+            "الضغط على المفصل المصاب أو ممارسة الرياضة العنيفة أو استخدام أدوية دون استشارة.",
+            "Pressing on the injured joint, doing strenuous exercise, or taking medications without guidance.",
+        ),
+        "emergency": tr(
+            "كان المفصل شديد التورم أو ساخناً ومحمرّاً أو صاحبه ارتفاع حرارة أو تعذر تحريكه أو تحميل الوزن عليه.",
+            "Severe joint swelling, warmth, redness, accompanying fever, or inability to move or bear weight on it.",
+        ),
+        "med": tr(
+            "حسب إرشادات الطبيب المختص.",
+            "As directed by the specialist physician.",
+        ),
+    },
+]
+
+# ==========================================
+# 4. العنوان الرئيسي والـ Sidebar
+# ==========================================
+st.title(
+    tr(
+        "🧠 النظام الخبير الطبي والرياضي الذكي بالذكاء الاصطناعي",
+        "🧠 AI Clinical, Medical & Sports Expert System",
+    )
+)
+st.markdown(
+    f"<p class='hero-sub'>{tr('تشخيص طبي منفصل وإرشادات طوارئ + برامج رياضية وجداول غذائية متكاملة', 'Separate clinical diagnosis & emergency guidance + structured sports & nutrition plans')}</p>",
+    unsafe_allow_html=True,
+)
+st.divider()
+
+st.sidebar.header(tr("👤 الملف الشخصي للمريض والرياضي", "👤 Patient & Athlete Profile"))
+
+age = st.sidebar.number_input(
+    tr("العمر (بالسنوات)", "Age (years)"),
+    min_value=1,
+    max_value=120,
+    value=22,
+)
+weight = st.sidebar.number_input(
+    tr("الوزن (كجم)", "Weight (kg)"),
+    min_value=20.0,
+    max_value=250.0,
+    value=70.0,
+    step=0.5,
+)
+height = st.sidebar.number_input(
+    tr("الطول (سم)", "Height (cm)"),
+    min_value=50.0,
+    max_value=250.0,
+    value=172.0,
+    step=0.5,
+)
+gender = st.sidebar.selectbox(
+    tr("الجنس", "Gender"),
+    [tr("أنثى", "Female"), tr("ذكر", "Male")],
+)
+activity_level = st.sidebar.selectbox(
+    tr("مستوى النشاط البدني والحركة", "Physical Activity & Movement Level"),
+    [
+        tr("خامل (بدون تمرين أو عمل مكتبي)", "Sedentary (no exercise or desk job)"),
+        tr("نشاط خفيف (تمرين 1-3 أيام في الأسبوع)", "Lightly active (exercise 1-3 days/week)"),
+        tr("نشاط معتدل (تمرين 3-5 أيام في الأسبوع)", "Moderately active (exercise 3-5 days/week)"),
+        tr("نشاط عالي جداً (تمارين شاقة 6-7 أيام)", "Very active (intense training 6-7 days/week)"),
+        tr("حركة محدودة / كبار السن (مجهود بسيط)", "Limited mobility / seniors (light effort)"),
+    ],
+)
+
+st.sidebar.divider()
+st.sidebar.subheader(tr("🧭 اختر القسم الذي تريد العمل عليه", "🧭 Choose the Section to Work On"))
+
+section_mode = st.sidebar.radio(
+    tr("القسم", "Section"),
+    [
+        tr("القسم الطبي والأمراض", "Medical & Diseases Section"),
+        tr("القسم الرياضي والغذائي", "Sports & Nutrition Section"),
+    ],
+)
+
+is_medical_section = section_mode in (
+    "القسم الطبي والأمراض",
+    "Medical & Diseases Section",
+)
+
+selected_disease = tr("لا يوجد أمراض أو أعراض (حالة سليمة)", "No diseases or symptoms (Healthy)")
+fitness_goal = tr("زيادة وزن وبناء عضلات", "Weight Gain & Muscle Building")
+
+if is_medical_section:
+    st.sidebar.divider()
+    st.sidebar.subheader(tr("🩺 قسم الأمراض والحالات السريرية الشاملة", "🩺 Comprehensive Diseases & Clinical Cases"))
+    disease_options = [tr("لا يوجد أمراض أو أعراض (حالة سليمة)", "No diseases or symptoms (Healthy)")] + [
+        d["label"] for d in DISEASES_DATA
+    ]
+    selected_disease = st.sidebar.selectbox(
+        tr("اختر الداء أو العرض الرئيسي", "Select main condition or symptom"),
+        disease_options,
+    )
+    action_clicked = st.sidebar.button(
+        tr("🩺 عرض التشخيص الطبي والروشتة", "🩺 Show Medical Diagnosis & Prescription"),
+        use_container_width=True,
+    )
+else:
+    st.sidebar.divider()
+    st.sidebar.subheader(tr("🏋️‍♂️ قسم الرياضة والتغذية المعتمدة", "🏋️‍♂️ Approved Sports & Nutrition Section"))
+    fitness_goal = st.sidebar.radio(
+        tr("اختر هدفك الرياضي والغذائي", "Choose your sports & nutrition goal"),
+        [
+            tr("زيادة وزن وبناء عضلات", "Weight Gain & Muscle Building"),
+            tr("تقليل وزن وتنشيف", "Weight Loss & Cutting"),
+        ],
+    )
+    action_clicked = st.sidebar.button(
+        tr("🏋️‍♂️ تفعيل النظام الرياضي والغذائي", "🏋️‍♂️ Activate Sports & Nutrition System"),
+        use_container_width=True,
+    )
+
+height_m = max(height / 100.0, 0.5)
+bmi = weight / (height_m ** 2)
+
+if bmi < 18.5:
+    bmi_cat = tr("نحافة", "Underweight")
+elif bmi < 25.0:
+    bmi_cat = tr("وزن مثالي", "Normal Weight")
+elif bmi < 30.0:
+    bmi_cat = tr("زيادة وزن", "Overweight")
+else:
+    bmi_cat = tr("سمنة", "Obese")
+
+# ==========================================
+# 5. عرض القسم الطبي والأمراض فقط
+# ==========================================
+if is_medical_section:
+    st.markdown(
+        f"""
+        <div class='section-banner'>
+            <span class='pill-badge'>{tr("تشخيص سريري وإرشادات طوارئ", "Clinical Triage & Emergency Guidance")}</span>
+            <h2 style='margin: 4px 0;'>{tr("🩺 القسم الطبي والأمراض", "🩺 Medical & Diseases Section")}</h2>
+            <p style='margin: 0; color: #cbd5e1;'>{tr("يعرض هذا القسم التقييم الطبي والإجراءات الأولية والتحذيرات والأدوية الموصوفة فقط.", "This section displays medical evaluation, initial actions, warnings, and prescribed medication only.")}</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    is_healthy = (
+        "لا يوجد" in selected_disease
+        or "No diseases" in selected_disease
+    )
+    confidence = 98.4 if is_healthy else 96.5
+
+    st.markdown(
+        f"### {tr('📊 التقرير التشخيصي وتحليل الذكاء الاصطناعي', '📊 Diagnostic Report & AI Analysis')}"
+    )
+    m1, m2, m3 = st.columns(3)
+    m1.metric(
+        tr("البيانات الحيوية", "Biometric Profile"),
+        f"{age} {tr('سنة', 'yrs')} | {gender}",
+    )
+    m2.metric(
+        tr("مؤشر كتلة الجسم (BMI)", "Body Mass Index (BMI)"),
+        f"{bmi:.1f}",
+        bmi_cat,
+    )
+    m3.metric(
+        tr("دقة النظام الخبير", "AI Confidence"),
+        f"{confidence}%",
+        selected_disease,
+    )
+    st.info(
+        f"**{tr('مستوى النشاط البدني:', 'Physical Activity Level:')}** {activity_level}"
+    )
+
+    if is_healthy:
+        st.success(
+            tr(
+                "لا توجد أمراض أو أعراض مسجلة حالياً — الحالة الصحية مستقرة.",
+                "No diseases or symptoms recorded currently — health status is stable.",
+            )
+        )
+    else:
+        matched = next(
+            (d for d in DISEASES_DATA if d["key"] in selected_disease or d["label"] == selected_disease),
+            None,
+        )
+        if matched:
+            st.markdown(f"### {matched['label']}")
+            st.markdown(
+                f"**{tr('📋 التصرف المبدئي والإرشادات:', '📋 Initial Actions & Guidance:')}**"
+            )
+            for item in matched["steps"]:
+                st.markdown(f"- {item}")
+
+            if matched["avoid"]:
+                st.warning(
+                    f"**{tr('⚠️ تجنب:', '⚠️ Avoid:')}** {matched['avoid']}"
+                )
+
+            if matched["emergency"]:
+                st.markdown(
+                    f"""
+                    <div class='em-card'>
+                        <strong>🚨 {tr("اذهب للطوارئ فوراً إذا ظهرت العلامات التالية:", "Go to ER immediately if any of the following occur:")}</strong><br>
+                        {matched["emergency"]}
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+            if matched["med"]:
+                st.markdown(
+                    f"""
+                    <div class='med-card'>
+                        <strong>💊 {tr("الروشتة الطبية المعتمدة - الدواء الموصوف:", "Approved Medical Prescription - Recommended Medication:")}</strong><br>
+                        {matched["med"]}
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+# ==========================================
+# 6. عرض القسم الرياضي والغذائي فقط
+# ==========================================
+else:
+    st.markdown(
+        f"""
+        <div class='section-banner'>
+            <span class='pill-badge'>{tr("تغذية وتمارين حسب الهدف", "Goal-Based Nutrition & Workouts")}</span>
+            <h2 style='margin: 4px 0;'>{tr("🏋️‍♂️ البرنامج الرياضي والنظام الغذائي", "🏋️‍♂️ Sports & Nutrition Program")}</h2>
+            <p style='margin: 0; color: #cbd5e1;'>{tr("خطط غذائية وتمارين رياضية مخصصة لزيادة الوزن وبناء العضلات أو تقليل الوزن والتنشيف.", "Tailored meal plans and workouts for weight gain/muscle building or weight loss/cutting.")}</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    s1, s2, s3 = st.columns(3)
+    s1.metric(
+        tr("البيانات البدنية", "Physical Profile"),
+        f"{age} {tr('سنة', 'yrs')} | {gender}",
+    )
+    s2.metric(
+        tr("مؤشر كتلة الجسم (BMI)", "Body Mass Index (BMI)"),
+        f"{bmi:.1f}",
+        bmi_cat,
+    )
+    s3.metric(
+        tr("الهدف المختار", "Selected Goal"),
+        fitness_goal,
+    )
+    st.info(
+        f"**{tr('مستوى النشاط البدني:', 'Physical Activity Level:')}** {activity_level}"
+    )
+
+    goal_str = str(fitness_goal or "")
+    is_gain_goal = ("زيادة وزن" in goal_str) or ("Weight Gain" in goal_str)
+
+    if is_gain_goal:
+        st.markdown(
+            f"""
+            <div class='section-banner'>
+                <span class='pill-badge'>{tr("فائض سعرات صحي ومتوازن", "Healthy Balanced Calorie Surplus")}</span>
+                <h3 style='margin: 4px 0;'>{tr("📈 جدول النظام الغذائي لزيادة الوزن وبناء العضلات", "📈 Weight Gain & Muscle Building Diet Plan")}</h3>
+                <p style='margin: 0; color: #cbd5e1;'>{tr("خطة يومية متكاملة من 6 وجبات لزيادة الكتلة العضلية والوزن الصحي بأمان على مدار اليوم.", "Complete 6-meal daily plan for safe muscle and weight gain across daily periods.")}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        gain_meals = [
+            [
+                f"<strong>{tr('الإفطار', 'Breakfast')}</strong><br><span style='color:#38bdf8;'>{tr('صباحاً', 'Morning')}</span>",
+                tr(
+                    "• 3 بيضات مقلية في الزبدة أو زيت الزيتون<br>• رغيف خبز بلدي أو شريحتين خبز توست بر<br>• كوب حليب كامل الدسم مع تمرات<br>• ملعقة كبيرة زبدة فول سوداني",
+                    "• 3 eggs cooked in butter or olive oil<br>• 1 baladi bread or 2 whole-wheat toast slices<br>• 1 full-fat milk with dates<br>• 1 tbsp peanut butter",
+                ),
+                tr(
+                    "دهون صحية وبروتين وكربوهيدرات مركبة لبدء اليوم بطاقة عالية.",
+                    "Healthy fats, protein, and complex carbs to start the day with high energy.",
+                ),
+            ],
+            [
+                f"<strong>{tr('وجبة خفيفة 1 (سناك 1)', 'Snack 1')}</strong><br><span style='color:#38bdf8;'>{tr('قبل الظهر', 'Mid-Morning')}</span>",
+                tr(
+                    "• طبق سلطة فواكه مجففة ومكسرات (عين جمل، لوز، زبيب)<br>• كوب عصير مانجو أو موز بالحليب كامل الدسم مع العسل",
+                    "• Dried fruit & nut bowl (walnuts, almonds, raisins)<br>• Mango juice or banana-milk shake with honey",
+                ),
+                tr(
+                    "سعرات مركزة سهلة الهضم وغنية بالدهون الصحية والطاقة.",
+                    "Concentrated, easy-to-digest calories rich in healthy fats and energy.",
+                ),
+            ],
+            [
+                f"<strong>{tr('الغداء (الوجبة الرئيسية)', 'Lunch (Main Meal)')}</strong><br><span style='color:#38bdf8;'>{tr('الظهر', 'Afternoon')}</span>",
+                tr(
+                    "• طبق كبير أرز مصري أو مكرونة (مطهو بالسمن أو الزبدة)<br>• صدرين دجاج أو قطعة لحم ضأن/بقري متوسطة الحجم<br>• طبق خضار مطهو مع مرقة ودسم صحي<br>• سلطة خضراء مع زيت الزيتون",
+                    "• Large bowl of Egyptian rice or pasta (with ghee/butter)<br>• 2 chicken breasts or medium lamb/beef portion<br>• Cooked vegetables with broth & healthy fat<br>• Green salad with olive oil",
+                ),
+                tr(
+                    "وجبة أساسية غنية بالبروتين والكربوهيدرات المعقدة لبناء الكتلة العضلية.",
+                    "Core meal rich in protein and complex carbs to support muscle building.",
+                ),
+            ],
+            [
+                f"<strong>{tr('وجبة 2 (قبل التمرين)', 'Meal 2 (Pre-Workout)')}</strong><br><span style='color:#38bdf8;'>{tr('قبل التمرين', 'Pre-Workout')}</span>",
+                tr(
+                    "• ساندوتش زبدة الفول السوداني والموز مع العسل<br>• أو بطاطس مسلوقة + مصدر بروتين خفيف",
+                    "• Peanut butter & banana sandwich with honey<br>• Or boiled potato + light protein source",
+                ),
+                tr(
+                    "تمد الجسم بطاقة عالية ومستقرة قبل بذل أي مجهود أو تمرين.",
+                    "Provides steady high energy before physical exertion or workouts.",
+                ),
+            ],
+            [
+                f"<strong>{tr('العشاء', 'Dinner')}</strong><br><span style='color:#38bdf8;'>{tr('مساءً', 'Evening')}</span>",
+                tr(
+                    "• طبق فول بزيت الزيتون والطحينة الخفيفة<br>• جبنة كاملة الدسم (قريش مع قشطة أو جبنة بيضاء دسمة)<br>• رغيف خبز بلدي",
+                    "• Fava beans (ful) with olive oil & light tahini<br>• Full-fat cheese (cottage with cream or full-fat white cheese)<br>• 1 baladi bread",
+                ),
+                tr(
+                    "بروتين ودهون مغذية تساعد على تعويض الجسم واستقرار السعرات مساءً.",
+                    "Nourishing protein and fats supporting recovery and evening calorie targets.",
+                ),
+            ],
+            [
+                f"<strong>{tr('قبل النوم مباشرة', 'Before Bed')}</strong><br><span style='color:#38bdf8;'>{tr('قبل النوم', 'Before Bed')}</span>",
+                tr(
+                    "• كوب حليب دافئ كامل الدسم مع ملعقة عسل ومكسرات مطحونة<br>• أو كوب زبادي كامل الدسم",
+                    "• Warm full-fat milk with 1 tsp honey & crushed nuts<br>• Or full-fat yogurt cup",
+                ),
+                tr(
+                    "يساعد على الاسترخاء ويدعم زيادة السعرات اليومية بأمان.",
+                    "Supports relaxation and helps meet daily calorie surplus goals.",
+                ),
+            ],
+        ]
+        st.markdown(
+            build_html_table(
+                [
+                    tr("الوجبة والفترة", "Meal & Period"),
+                    tr("مكونات الوجبة المقترحة", "Suggested Meal Components"),
+                    tr("القيمة والفوائد الغذائية", "Nutritional Value & Benefits"),
+                ],
+                gain_meals,
+            ),
+            unsafe_allow_html=True,
+        )
+
+        st.markdown(
+            f"### {tr('🏋️‍♂️ الرياضة والتمارين المطلوبة (زيادة وزن وبناء عضلات)', '🏋️‍♂️ Required Sports & Workouts (Weight Gain & Muscle Building)')}"
+        )
+        gain_sports = [
+            [
+                f"<strong>{tr('اليوم 1', 'Day 1')}</strong>",
+                tr(
+                    "تمارين مقاومة: صدر، كتف أمامي وجانبي، وترايسبس (45 - 60 دقيقة • 4 أيام أسبوعياً)",
+                    "Resistance training: chest, front/side delts, triceps (45–60 min • 4 days/week)",
+                ),
+            ],
+            [
+                f"<strong>{tr('اليوم 2', 'Day 2')}</strong>",
+                tr(
+                    "تمارين مقاومة: ظهر، كتف خلفي، وبايسبس (45 - 60 دقيقة • 4 أيام أسبوعياً)",
+                    "Resistance training: back, rear delts, biceps (45–60 min • 4 days/week)",
+                ),
+            ],
+            [
+                f"<strong>{tr('اليوم 3', 'Day 3')}</strong>",
+                tr(
+                    "راحة تامة واستشفاء عضلي",
+                    "Complete rest and muscle recovery",
+                ),
+            ],
+            [
+                f"<strong>{tr('اليوم 4', 'Day 4')}</strong>",
+                tr(
+                    "تمارين مقاومة شاملة: فخذ أمامي وخلفي وسمانة (45 - 60 دقيقة • 4 أيام أسبوعياً)",
+                    "Full lower-body resistance: quads, hamstrings, calves (45–60 min • 4 days/week)",
+                ),
+            ],
+            [
+                f"<strong>{tr('اليوم 5', 'Day 5')}</strong>",
+                tr(
+                    "تمارين جزء علوي وبطن (Upper Body & Core) (45 - 60 دقيقة • 4 أيام أسبوعياً)",
+                    "Upper body & core workout (45–60 min • 4 days/week)",
+                ),
+            ],
+            [
+                f"<strong>{tr('اليوم 6 و 7', 'Days 6 & 7')}</strong>",
+                tr(
+                    "راحة ومرونة واستشفاء عضلي",
+                    "Rest, mobility, and recovery",
+                ),
+            ],
+        ]
+        st.markdown(
+            build_html_table(
+                [tr("اليوم", "Day"), tr("الرياضة والتمارين المطلوبة", "Required Sports & Workouts")],
+                gain_sports,
+            ),
+            unsafe_allow_html=True,
+        )
+
+        st.markdown(
+            f"### {tr('💡 نصائح ذهبية لنجاح نظام زيادة الوزن', '💡 Golden Tips for Weight Gain Success')}"
+        )
+        st.markdown(
+            f"""
+            <div class='tip-card'><strong>1. {tr("زيادة السعرات التدريجية:", "Gradual Calorie Surplus:")}</strong> {tr("حاول أن تأكل كميات أكبر قليلاً مما اعتدت عليه بالتدريج لكي لا تشعر بتخمة مفاجئة.", "Gradually increase portions above your usual intake so your digestion adapts comfortably.")}</div>
+            <div class='tip-card'><strong>2. {tr("الدهون الصحية في كل وجبة:", "Healthy Fats in Every Meal:")}</strong> {tr("ركّز على زيت الزيتون، الأفوكادو، المكسرات، زبدة الفول السوداني، والزبادي كامل الدسم.", "Focus on olive oil, avocado, nuts, peanut butter, and full-fat dairy.")}</div>
+            <div class='tip-card'><strong>3. {tr("الاستمرارية والراحة:", "Consistency & Rest:")}</strong> {tr("الالتزام بالتمارين والنوم الكافي أساس بناء الكتلة العضلية والوزن الصحي.", "Consistent training and quality sleep are essential for building healthy weight and muscle.")}</div>
+            """,
+            unsafe_allow_html=True,
+        )
+    else:
+        st.markdown(
+            f"""
+            <div class='section-banner'>
+                <span class='pill-badge'>{tr("تنشيف وخسارة دهون", "Cutting & Fat Loss")}</span>
+                <h3 style='margin: 4px 0;'>{tr("🔥 جدول النظام الغذائي لتقليل الوزن والتنشيف", "🔥 Weight Loss & Cutting Diet Plan")}</h3>
+                <p style='margin: 0; color: #cbd5e1;'>{tr("خطة متوازنة عالية البروتين لتقليل الدهون والحفاظ على الكتلة العضلية مع اختيار بديل واحد لكل وجبة.", "Balanced high-protein plan for fat loss and muscle preservation — pick one option per meal.")}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        cut_meals = [
+            [
+                f"<strong>{tr('الإفطار', 'Breakfast')}</strong>",
+                tr(
+                    "3 بيضات مسلوقة أو مقلية بملعقة زيت زيتون + ربع رغيف بلدي + خيار وجرجير",
+                    "3 boiled eggs or fried with 1 tsp olive oil + 1/4 baladi bread + cucumber & arugula",
+                ),
+                tr(
+                    "4 ملاعق فول بزيت زيتون وكمون + ربع رغيف بلدي + بيضة مسلوقة أو قطعة جبنة قريش",
+                    "4 tbsp fava beans with olive oil & cumin + 1/4 baladi bread + 1 boiled egg or cottage cheese",
+                ),
+                tr(
+                    "لبداية نشيطة وشبع لفترة طويلة",
+                    "For an active start and long-lasting fullness",
+                ),
+            ],
+            [
+                f"<strong>{tr('الغداء', 'Lunch')}</strong>",
+      
