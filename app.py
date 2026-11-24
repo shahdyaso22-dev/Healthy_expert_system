@@ -416,47 +416,6 @@ DISEASES_DATA = [
         ),
     },
     {
-        "key": "11.",
-        "label": tr("11. ألم الظهر (Back Pain)", "11. Back Pain"),
-        "steps": [
-            tr("تجنب حمل الأشياء الثقيلة أو الانحناء المفاجئ.", "Avoid lifting heavy objects or sudden bending."),
-            tr("تغيير وضعية الجلوس باستمرار والمشي الخفيف والحركة الهادئة حسب القدرة.", "Change sitting posture continuously with light walking and gentle movement as tolerated."),
-            tr("استخدام كمادات باردة أو دافئة ملفوفة في قطعة قماش والحصول على راحة دون ملازمة السرير لفترات طويلة.", "Use cold or warm compresses wrapped in a cloth and rest without prolonged bed rest."),
-        ],
-        "avoid": tr(
-            "الحركات المفاجئة أو حمل الأوزان أو التدليك العنيف على منطقة الألم.",
-            "Sudden movements, lifting heavy weights, or vigorous massage over the painful area.",
-        ),
-        "emergency": tr(
-            "وجود ألم ضعف مفاجئ بالساقين، أو فقدان التحكم في البول أو البراز أو فقدان الإحساس بمنطقة ما بين الفخذين، أو حدث بعد إصابة قوية.",
-            "Sudden leg weakness, loss of bowel or bladder control, saddle numbness between the thighs, or trauma.",
-        ),
-        "med": tr(
-            "حسب إرشادات الطبيب المختص.",
-            "As directed by the specialist physician.",
-        ),
-    },
-    {
-        "key": "12.",
-        "label": tr("12. ألم المفاصل والعضلات (Joint & Muscle Pain)", "12. Joint & Muscle Pain"),
-                "steps": [
-            tr("إراحة الجزء المصاب مؤقتاً.", "Rest the affected area temporarily."),
-            tr("استخدام كمادات باردة ملفوفة في منشفة لمدة قصيرة عند وجود تورم حديث.", "Use cold compresses wrapped in a towel for short intervals if there is recent swelling."),
-            tr("تجنب المجهود والحركات التي تزيد الألم وتحريك المفصل بلطف عندما تسمح الحالة وشرب الماء بانتظام.", "Avoid exertion and painful movements, move the joint gently when tolerated, and drink water regularly."),
-        ],
-        "avoid": tr(
-            "الضغط على المفصل المصاب أو ممارسة الرياضة العنيفة أو استخدام أدوية دون استشارة.",
-            "Pressing on the injured joint, doing strenuous exercise, or taking medications without guidance.",
-        ),
-        "emergency": tr(
-            "كان المفصل شديد التورم أو ساخناً ومحمرّاً أو صاحبه ارتفاع حرارة أو تعذر تحريكه أو تحميل الوزن عليه.",
-            "Severe joint swelling, warmth, redness, accompanying fever, or inability to move or bear weight on it.",
-        ),
-        "med": tr(
-            "حسب إرشادات الطبيب المختص.",
-            "As directed by the specialist physician.",
-        ),
-    },
 ]
 
 # ==========================================
