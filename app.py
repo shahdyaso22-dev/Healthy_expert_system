@@ -415,7 +415,6 @@ DISEASES_DATA = [
             "As directed by the specialist physician.",
         ),
     },
-    {
 ]
 
 # ==========================================
