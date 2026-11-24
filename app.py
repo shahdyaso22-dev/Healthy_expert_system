@@ -853,4 +853,105 @@ else:
             ],
             [
                 f"<strong>{tr('الغداء', 'Lunch')}</strong>",
+                tr(
+                    "<strong>بروتين:</strong> 150-200 جم صدور فراخ مشوية/مسلوقة أو لحم مفروم قليل الدهن<br><strong>نشويات:</strong> 5 ملاعق أرز أو مكرونة<br><strong>خضار:</strong> طبق خضار سوتيه + سلطة كبيرة",
+                    "<strong>Protein:</strong> 150–200g grilled/boiled chicken breast or lean minced meat<br><strong>Carbs:</strong> 5 tbsp rice or pasta<br><strong>Veggies:</strong> Sautéed veggies + large salad",
+                ),
+                tr(
+                    "<strong>بروتين:</strong> 2 سمكة مشوية<br><strong>نشويات:</strong> رغيف بلدي كامل أو 5 ملاعق أرز<br><strong>خضار:</strong> طبق سلطة خضراء كبير",
+                    "<strong>Protein:</strong> 2 grilled fish<br><strong>Carbs:</strong> 1 whole baladi bread or 5 tbsp rice<br><strong>Veggies:</strong> Large green salad",
+                ),
+                tr(
+                    "معلقة زيت زيتون وليمون فقط على السلطة",
+                    "1 tsp olive oil and lemon juice on salad only",
+                ),
+            ],
+            [
+                f"<strong>{tr('العشاء', 'Dinner')}</strong>",
+                tr(
+                    "150 جم جبنة قريش بالطماطم والخيار ورشة زعتر + ربع رغيف بلدي",
+                    "150g cottage cheese with tomato, cucumber & pinch of zaatar + 1/4 baladi bread",
+                ),
+                tr(
+                    "علبة تونة مصفاة تماماً + طبق سلطة خضراء",
+                    "1 can tuna thoroughly drained + green salad",
+                ),
+                tr(
+                    "وجبة خفيفة ومناسبة قبل النوم",
+                    "Light meal suitable before bedtime",
+                ),
+            ],
+        ]
+        st.markdown(
+            build_html_table(
+                [
+                    tr("الوجبة", "Meal"),
+                    tr("الخيار الأول", "Option 1"),
+                    tr("الخيار الثاني", "Option 2"),
+                    tr("ملاحظات هامة", "Key Notes"),
+                ],
+                cut_meals,
+            ),
+            unsafe_allow_html=True,
+        )
+
+        st.markdown(
+            f"### {tr('🏃‍♀️ الرياضة والتمارين المطلوبة (تقليل وزن وتنشيف)', '🏃‍♀️ Required Sports & Workouts (Weight Loss & Cutting)')}"
+        )
+        cut_sports = [
+            [
+                f"<strong>{tr('اليوم 1 و 4', 'Days 1 & 4')}</strong>",
+                tr(
+                    "تمارين كارديو (Cardio): مشي سريع أو جري خفيف (30 - 45 دقيقة)",
+                    "Cardio: brisk walking or light jogging (30–45 min)",
+                ),
+            ],
+            [
+                f"<strong>{tr('اليوم 2 و 5', 'Days 2 & 5')}</strong>",
+                tr(
+                    "تمارين مقاومة كاملة للجسم (Full Body Circuit) لحماية العضلات ورفع الحرق",
+                    "Full body resistance circuit to protect muscle and boost calorie burn",
+                ),
+            ],
+            [
+                f"<strong>{tr('اليوم 3', 'Day 3')}</strong>",
+                tr(
+                    "كارديو متقطع خفيف أو حبل قفز أو عجلة ثابتة (20 - 30 دقيقة)",
+                    "Light interval cardio, jump rope, or stationary bike (20–30 min)",
+                ),
+            ],
+            [
+                f"<strong>{tr('اليوم 6 و 7', 'Days 6 & 7')}</strong>",
+                tr(
+                    "مشي خفيف في الهواء الطلق واستشفاء عضلي",
+                    "Light outdoor walk and active recovery",
+                ),
+            ],
+        ]
+        st.markdown(
+            build_html_table(
+                [tr("اليوم", "Day"), tr("الرياضة والتمارين المطلوبة", "Required Sports & Workouts")],
+                cut_sports,
+            ),
+            unsafe_allow_html=True,
+        )
+
+        st.markdown(
+            f"### {tr('💡 قواعد أساسية لنجاح التنشيف وتقليل الوزن', '💡 Core Rules for Successful Cutting & Weight Loss')}"
+        )
+        st.markdown(
+            f"""
+            <div class='tip-card'><strong>1. {tr("شرب المياه:", "Hydration:")}</strong> {tr("من 2.5 إلى 3 لتر يومياً لزيادة معدل الحرق ومنع الإحساس الوهمي بالجوع.", "2.5 to 3 liters daily to support metabolic rate and reduce false hunger cues.")}</div>
+            <div class='tip-card'><strong>2. {tr("الحركة الخفيفة:", "Light Movement:")}</strong> {tr("المشي 15-20 دقيقة في منتصف اليوم أو بعد الغداء لتعويض الجلوس المكتبي.", "15–20 minutes of walking midday or after lunch to offset sitting.")}</div>
+            <div class='tip-card'><strong>3. {tr("السكر والمشروبات:", "Sugar & Beverages:")}</strong> {tr("استبدال السكر الأبيض ببدائل مناسبة أو تقليله بشدة ومنع العصائر المحلاة تماماً.", "Minimize or replace refined sugar and avoid sweetened juices completely.")}</div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+st.divider()
+st.markdown(
+    f"<p class='footer-note'>{tr('النظام الخبير الطبي والرياضي المعتمد • مشروع تخرج قسم الذكاء الاصطناعي', 'Approved Clinical & Sports Expert System • Artificial Intelligence Graduation Project')}</p>",
+    unsafe_allow_html=True,
+    )
+    
       
