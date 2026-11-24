@@ -621,7 +621,7 @@ if is_medical_section:
             )
     )
 
-        else:
+    else:
             matched = next(
             (
                 d for d in DISEASES_DATA
