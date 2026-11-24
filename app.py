@@ -630,10 +630,10 @@ if is_medical_section:
             ),
             None,
         ) 
-        if matched:
-            st.markdown(f"### {matched['label']}")
-            st.markdown(
-                f"**{tr('🩺 التصرف المبدئي والإرشادات:', '🩺 Initial Actions & Guidance:')}**"
+            if matched:
+                st.markdown(f"### {matched['label']}")
+                st.markdown(
+                    f"**{tr('🩺 التصرف المبدئي والإرشادات:', '🩺 Initial Actions & Guidance:')}**"
             )
             for item in matched["steps"]:
                 st.markdown(f"- {item}")
