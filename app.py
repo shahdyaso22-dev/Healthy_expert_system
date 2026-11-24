@@ -622,11 +622,11 @@ if is_medical_section:
             )
         )
     else:
-        matched = next(
+                matched = next(
             (
                 d for d in DISEASES_DATA
-                if d["label"] == selected_disease
-                or d["key"] in str(selected_disease)
+                if str(d["label"]).strip() == str(selected_disease).strip()
+                or str(d["key"]).strip() in str(selected_disease)
             ),
             None,
         )
