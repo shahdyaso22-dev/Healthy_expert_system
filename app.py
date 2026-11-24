@@ -635,7 +635,7 @@ if is_medical_section:
                 if str(selected_disease).strip().startswith(f"{idx}.") or str(selected_disease).strip().startswith(f"{idx} "):
                     matched = d
                     break
-        if matched:
+    if matched:
             st.markdown(f"### {matched['label']}")
             st.markdown(
                 f"**{tr('🩺 التصرف المبدئي والإرشادات:', '🩺 Initial Actions & Guidance:')}**"
